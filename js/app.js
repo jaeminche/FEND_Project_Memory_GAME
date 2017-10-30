@@ -1,7 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-
+let cardList = [];
+cardList = $(".card");
 
 /*
  * Display the cards on the page
@@ -12,30 +13,30 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 	// While there remain elements to shuffle...
     while (currentIndex !== 0) {
     	// Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-
 	    // And swap it with the current element.
-        console.log('currentArray', array);
         temporaryValue = array[currentIndex];
-        console.log('temporaryValue', temporaryValue);
         array[currentIndex] = array[randomIndex];
-        console.log('array[randomIndex]', array[randomIndex]);
-        var x = array[currentIndex];
-        console.log('array[currentIndex]', x);
         array[randomIndex] = temporaryValue;
-        console.log('finalarray', array);
     }
     return array;
 }
 
-var arr = [2, 11, 37, 42];
-arr = shuffle(arr);
-console.log(arr);
+function displayCard() {
+	cardlist = shuffle(cardList);
+	$(".deck").html(cardlist);
+}
+displayCard();
+
+$(".restart").click(function() {
+	displayCard();
+})
+
 
 
 /*
