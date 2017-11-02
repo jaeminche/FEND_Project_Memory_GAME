@@ -1,8 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-let cardList = [];
-cardList = $(".card");
+// let cardList = [];
+// cardList = $(".card");
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -10,17 +10,20 @@ cardList = $(".card");
  *   - add each card's HTML to the page
  */
 
-let DisplayCard = function() {
+let displayCard = function() {
+	let cardList = [];
+	cardList = $(".card");
 	cardList = shuffle(cardList);
 	let newCardList = [];
 	for (let i = 0; i < cardList.length; i++) {
+		$(cardList[i]).removeClass("open show match");
 		newCardList.push(cardList[i]);
 	}
 	$(".deck").html(newCardList);
 }
-let game = new DisplayCard();
+// let game = new DisplayCard();
 
-DisplayCard();
+displayCard();
 
 // DisplayCard.prototype.open = function() {
 // 	$(this).addClass("open");
@@ -54,33 +57,53 @@ function shuffle(array) {
 }
 
 $(".restart").click(function() {
-	DisplayCard();
+	location.reload();
 })
+
+
+// let Match = function() {
+// 	this.moves = 0;
+// }
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show");
 	pushCardInList(cardSelected);
 }
 
-const listOfCardClassNm = [];
-const cardsSelected = [];
+let listOfCardClassNm = [];
+let listOfSeltCard = [];
+let listMatched = [];
 let pushCardInList = function(cardSltd) {
-	var cardsClassName = $(cardSltd).children().attr('class');
-	listOfCardClassNm.push(cardsClassName);
-	cardsSelected.push(cardSltd);
+	var classNmOfCard = $(cardSltd).children().attr('class');
+	listOfCardClassNm.push(classNmOfCard);
+	listOfSeltCard.push(cardSltd);
 	if (listOfCardClassNm.length === 2) {
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
-			$(cardsSelected).addClass("match");
+			$(listOfSeltCard).addClass("match");
+			listOfCardClassNm = [];
+			// listOfSeltCard = [];
 		} else {
-		$(cardsSelected).removeClass("open show");
+			setTimeout(function() {
+				$(listOfSeltCard).removeClass("open show");
+				listOfSeltCard = [];
+			}, 1500);
+			listOfCardClassNm = [];
+			// listOfSeltCard = [];
 		}
+		// listOfCardClassNm = [];
+		// listOfSeltCard = [];
 	}
+	// listOfCardClassNm = [];
+	// listOfSeltCard = [];
 }
+
+// let mat = new Match();
 
 let incrementMoveCnt = function() {
 	var numMove = $(".moves");
 	numMove.html(parseInt(numMove.html()) + 1);
+	// mat.openShowCard();
 }
 
 $(".card").click(function() {
