@@ -3,13 +3,39 @@
  */
 let cardList = [];
 cardList = $(".card");
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+let DisplayCard = function() {
+	cardList = shuffle(cardList);
+	let newCardList = [];
+	for (let i = 0; i < cardList.length; i++) {
+		newCardList.push(cardList[i]);
+	}
+	$(".deck").html(newCardList);
+}
+let game = new DisplayCard();
+
+DisplayCard();
+
+// DisplayCard.prototype.open = function() {
+// 	$(this).addClass("open");
+// }
+// DisplayCard.prototype.show = function() {
+// 	$(this).addClass("show");
+// }
+// DisplayCard.prototype.match = function() {
+// 	$(this).addClass("match");
+// }
+
+
+// let OpenCard = function() {
+// 	DisplayCard.call(this);
+// }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -27,17 +53,54 @@ function shuffle(array) {
     return array;
 }
 
-function displayCard() {
-	cardlist = shuffle(cardList);
-	$(".deck").html(cardlist);
-}
-displayCard();
-
 $(".restart").click(function() {
-	displayCard();
+	DisplayCard();
 })
 
+let openShowCard = function(cardSelected) {
+	$(cardSelected).addClass("open show");
+	pushCardInList(cardSelected);
+}
 
+const listOfCardClassNm = [];
+const cardsSelected = [];
+let pushCardInList = function(cardSltd) {
+	var cardsClassName = $(cardSltd).children().attr('class');
+	listOfCardClassNm.push(cardsClassName);
+	cardsSelected.push(cardSltd);
+	if (listOfCardClassNm.length === 2) {
+		incrementMoveCnt();
+		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
+			$(cardsSelected).addClass("match");
+		} else {
+		$(cardsSelected).removeClass("open show");
+		}
+	}
+}
+
+let incrementMoveCnt = function() {
+	var numMove = $(".moves");
+	numMove.html(parseInt(numMove.html()) + 1);
+}
+
+$(".card").click(function() {
+	openShowCard(this);
+});
+
+
+
+// const listShow = [];
+// $(".card").click(function() {
+// 	$(this).addClass("open show");
+// 	var cardClass = $(this).children().attr('class');
+// 	listShow.push(cardClass);
+// 	if (listShow[0] === listShow[1]) {
+// 		// console.log("match");
+
+// 	} else {
+// 		console.log("unmatch");
+// 	}
+// })
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -53,9 +116,12 @@ $(".restart").click(function() {
 
 /*
  * Start by building a very simple grid of cards.
- * Don't worry about styling, just get something clickable on the page.
- * Figure out the HTML needed to represent a card. Remember, you have to represent two sides of the card.
- * Are you going to have two separate elements stacked on top of each other?
+ * -- Don't worry about styling, just get something clickable on the page.
+ * -- Figure out the HTML needed to represent a card. Remember, you have to represent two sides of the card.
+ * ----Are you going to have two separate elements stacked on top of each other?
  * Add the functionality to handle clicks.
- * This should reveal the hidden side of each card.
+ * -- This should reveal the hidden side of each card.
+ * Work on the matching logic. How does your game "know" if a player guesses correctly or incorrectly?
+ * Work on the winning condition. How does your game “know” if a player has won?
+ * We recommend saving styling until the very end. Allow your game logic and functionality to dictate the styling.
  */
