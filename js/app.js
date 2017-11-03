@@ -82,20 +82,16 @@ let pushCardInList = function(cardSltd) {
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
 			$(listOfSeltCard).addClass("match");
 			listOfCardClassNm = [];
-			// listOfSeltCard = [];
 		} else {
+			$(".card").css("pointer-events", "none");
 			setTimeout(function() {
 				$(listOfSeltCard).removeClass("open show");
 				listOfSeltCard = [];
-			}, 1500);
+				$(".card").css("pointer-events", "auto");
+			}, 700);
 			listOfCardClassNm = [];
-			// listOfSeltCard = [];
 		}
-		// listOfCardClassNm = [];
-		// listOfSeltCard = [];
 	}
-	// listOfCardClassNm = [];
-	// listOfSeltCard = [];
 }
 
 // let mat = new Match();
