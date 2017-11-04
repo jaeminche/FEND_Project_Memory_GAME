@@ -66,7 +66,7 @@ $(".restart").click(function() {
 // }
 
 let openShowCard = function(cardSelected) {
-	$(cardSelected).addClass("open show");
+	$(cardSelected).addClass("open show animated flip");
 	$(cardSelected).css("pointer-events", "none");
 	pushCardInList(cardSelected);
 }
@@ -92,7 +92,7 @@ let pushCardInList = function(cardSltd) {
 		} else {
 			$(".card").css("pointer-events", "none");
 			setTimeout(function() {
-				$(listForMatch).removeClass("open show");
+				$(listForMatch).removeClass("open show animated flip");
 				listForMatch = [];
 				$(".card").css("pointer-events", "auto");
 			}, 700);
@@ -235,7 +235,7 @@ window.onclick = function(event) {
 
 
 
-function startTimer(duration, display) {
+function startCountDown(duration, display) {
     let timer = duration, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -247,7 +247,8 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
 
         if (--timer < 0) {
-            timer = duration;
+            $(".deck").addClass("magictime vanishOut");
+            timer = 0;
         }
     }, 1000);
 }
@@ -258,5 +259,5 @@ $(function ($) {
     	extremeMode = 60 * 1,
     	impossibleMode = 60 * 0.5,
         display = $('#count-down');
-    startTimer(impossibleMode, display);
+    startCountDown(impossibleMode, display);
 });
