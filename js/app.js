@@ -53,6 +53,8 @@ let openShowCard = function(cardSelected) {
 	pushCardInList(cardSelected);
 }
 
+let t0, t1, timeSpent;
+
 let listOfCardClassNm = [];
 let listForMatch = [];
 let totalMatch = 0;
@@ -65,9 +67,12 @@ let pushCardInList = function(cardSltd) {
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
 			$(listForMatch).addClass("match");
 			totalMatch++;
+			// if user finishes the game
 			if (totalMatch === 8) {
+				t1 = performance.now()
 				stopCountDown();
 				starCounter();
+				getTimeSpent();
 				targetPopup("finishPopup");
 			}
 			$(listForMatch).off('click');
@@ -123,9 +128,15 @@ let pushStarInPopup = function(times) {
 	}
 }
 
-
+let getTimeSpent = function() {
+	timeInSec = parseInt((t1 - t0)/1000);
+    min = parseInt(timeInSec / 60, 10);
+    sec = parseInt(timeInSec % 60, 10);
+    $('.time-spent').text(min + " : " + sec);
+}
 
 function startCountDown(duration, display) {
+	t0 = performance.now();
     var timer = duration, minutes, seconds;
     callInterval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -141,6 +152,7 @@ function startCountDown(duration, display) {
         	callSetTimeout = setTimeout(function() {
 				$(".container").addClass("animated bounceInDown");
 				stopCountDown();
+				$('.time-spent').text()
 				targetPopup("gameoverPopup");
 			}, 1000);
         }
@@ -156,6 +168,10 @@ $(function ($) {
     startCountDown(impossibleMode, display);
 });
 
+var stopCountDown = function() {
+	clearTimeout(callSetTimeout);
+	clearInterval(callInterval);
+}
 
  // Get the popup
 // var finishPopup = document.getElementById('finishPopup');
@@ -164,10 +180,6 @@ $(function ($) {
 var popup;
 // var span = document.getElementsByClassName("close")[0];
 // When the user wins the game, open the popup
-var stopCountDown = function() {
-	clearTimeout(callSetTimeout);
-	clearInterval(callInterval);
-}
 var targetPopup = function(popupName) {
 	popup = document.getElementById(popupName);
 	openPopup();
