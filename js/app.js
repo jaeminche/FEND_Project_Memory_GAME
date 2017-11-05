@@ -20,25 +20,12 @@ let displayCard = function() {
 		newCardList.push(cardList[i]);
 	}
 	$(".deck").html(newCardList);
+
 }
-// let game = new DisplayCard();
 
 displayCard();
 
-// DisplayCard.prototype.open = function() {
-// 	$(this).addClass("open");
-// }
-// DisplayCard.prototype.show = function() {
-// 	$(this).addClass("show");
-// }
-// DisplayCard.prototype.match = function() {
-// 	$(this).addClass("match");
-// }
 
-
-// let OpenCard = function() {
-// 	DisplayCard.call(this);
-// }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -85,7 +72,7 @@ let pushCardInList = function(cardSltd) {
 			totalMatch++;
 			if (totalMatch === 8) {
 				starCounter();
-				openPopup();
+				targetPopup("finishPopup");
 			}
 			$(listForMatch).off('click');
 			listOfCardClassNm = [];
@@ -100,8 +87,6 @@ let pushCardInList = function(cardSltd) {
 		}
 	}
 }
-
-// let mat = new Match();
 
 let incrementMoveCnt = function() {
 	let numMove = $(".moves");
@@ -137,6 +122,102 @@ let starCounter = function() {
 	list = $('.fa-star');
 	$('.num-stars').html(list.length);
 }
+
+function startCountDown(duration, display) {
+    var timer = duration, minutes, seconds;
+    var callInterval;
+    callInterval = setInterval(function () {
+
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            $(".deck").addClass("magictime puffOut");
+            var callSetTimeout;
+        	callSetTimeout = setTimeout(function() {
+				$(".container").addClass("animated bounceInDown");
+				targetPopup("gameoverPopup");
+				clearTimeout(callSetTimeout);
+				clearInterval(callInterval);
+			}, 1000);
+        }
+	}, 1000);
+}
+
+$(function ($) {
+    let easyMode = 60 * 5,
+    	mediumMode = 60 * 2,
+    	extremeMode = 60 * 1,
+    	impossibleMode = 60 * 0.04,
+        display = $('#count-down');
+    startCountDown(impossibleMode, display);
+});
+
+
+ // Get the popup
+// var finishPopup = document.getElementById('finishPopup');
+// var popup = document.getElementById(targetPopup);
+// Get the <span> element that closes the popup
+var popup;
+var span = document.getElementsByClassName("close")[0];
+// When the user wins the game, open the popup
+var targetPopup = function(popupName) {
+	// var targetPopup = popupName;
+	popup = document.getElementById(popupName);
+	openPopup();
+}
+var openPopup = function() {
+    popup.style.display = "block";
+    // targetPopup = target
+}
+// When the user clicks on <span> (x), close the popup
+$(".close").click(function() {
+	console.log(popup);
+    popup.style.display = "none";
+})
+// When the user clicks anywhere outside of the popup, close it
+window.onclick = function(event) {
+    if (event.target == popup) {
+        popup.style.display = "none";
+    }
+}
+
+
+
+
+//plain timer
+// var minutesLabel = document.getElementById("minutes");
+// var secondsLabel = document.getElementById("seconds");
+// var totalSeconds = 0;
+// setInterval(setTime, 1000);
+
+// function setTime()
+// {
+//     ++totalSeconds;
+//     secondsLabel.innerHTML = pad(totalSeconds%60);
+//     minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+// }
+
+// function pad(val)
+// {
+//     var valString = val + "";
+//     if(valString.length < 2)
+//     {
+//         return "0" + valString;
+//     }
+//     else
+//     {
+//         return valString;
+//     }
+// }
+//plain timer ends
+
+
 
 
 // const listShow = [];
@@ -178,86 +259,23 @@ let starCounter = function() {
 
 
 
- // Get the popup
-var popup = document.getElementById('myPopup');
-
-// Get the button that opens the popup
-// var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the popup
-var span = document.getElementsByClassName("close")[0];
-
-// When the user wins the game, open the popup
-let openPopup = function() {
-    popup.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the popup
-span.onclick = function() {
-    popup.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the popup, close it
-window.onclick = function(event) {
-    if (event.target == popup) {
-        popup.style.display = "none";
-    }
-}
 
 
 
-//plain timer
-// var minutesLabel = document.getElementById("minutes");
-// var secondsLabel = document.getElementById("seconds");
-// var totalSeconds = 0;
-// setInterval(setTime, 1000);
 
-// function setTime()
-// {
-//     ++totalSeconds;
-//     secondsLabel.innerHTML = pad(totalSeconds%60);
-//     minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+
+
+// DisplayCard.prototype.open = function() {
+// 	$(this).addClass("open");
+// }
+// DisplayCard.prototype.show = function() {
+// 	$(this).addClass("show");
+// }
+// DisplayCard.prototype.match = function() {
+// 	$(this).addClass("match");
 // }
 
-// function pad(val)
-// {
-//     var valString = val + "";
-//     if(valString.length < 2)
-//     {
-//         return "0" + valString;
-//     }
-//     else
-//     {
-//         return valString;
-//     }
+
+// let OpenCard = function() {
+// 	DisplayCard.call(this);
 // }
-//plain timer ends
-
-
-
-function startCountDown(duration, display) {
-    let timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.text(minutes + ":" + seconds);
-
-        if (--timer < 0) {
-            $(".deck").addClass("magictime vanishOut");
-            timer = 0;
-        }
-    }, 1000);
-}
-
-$(function ($) {
-    let easyMode = 60 * 5,
-    	mediumMode = 60 * 2,
-    	extremeMode = 60 * 1,
-    	impossibleMode = 60 * 0.5,
-        display = $('#count-down');
-    startCountDown(impossibleMode, display);
-});
