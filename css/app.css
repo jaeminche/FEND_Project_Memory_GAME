@@ -86,7 +86,7 @@ h1 {
 }
 
 /*
- * Styles for the Score Panel
+ * Styles for the Score Panel and awards
  */
 
 .score-panel {
@@ -95,6 +95,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+.awards,
 .score-panel .stars {
     margin: 0;
     padding: 0;
@@ -102,6 +103,7 @@ h1 {
     margin: 0 5px 0 0;
 }
 
+.awards li,
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
@@ -170,7 +172,12 @@ h1 {
 }
 
 
-
+.awards {
+    color: yellow;
+    font-size: 4em;
+    font-weight: bold;
+    text-shadow: 0 0 3px blue;
+}
 
 .animated {
     background-image: url(../img/fail.png);

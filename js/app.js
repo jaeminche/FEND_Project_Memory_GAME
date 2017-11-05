@@ -10,6 +10,8 @@
  *   - add each card's HTML to the page
  */
 
+var callSetTimeout, callInterval;
+
 let displayCard = function() {
 	let cardList = [];
 	cardList = $(".card");
@@ -24,8 +26,6 @@ let displayCard = function() {
 }
 
 displayCard();
-
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -47,11 +47,6 @@ $(".restart").click(function() {
 	location.reload();
 })
 
-
-// let Match = function() {
-// 	this.moves = 0;
-// }
-
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flip");
 	$(cardSelected).css("pointer-events", "none");
@@ -71,6 +66,7 @@ let pushCardInList = function(cardSltd) {
 			$(listForMatch).addClass("match");
 			totalMatch++;
 			if (totalMatch === 8) {
+				stopCountDown();
 				starCounter();
 				targetPopup("finishPopup");
 			}
@@ -91,27 +87,23 @@ let pushCardInList = function(cardSltd) {
 let incrementMoveCnt = function() {
 	let numMove = $(".moves");
 	numMove.html(parseInt(numMove.html()) + 1);
-	if (parseInt(numMove.html()) >= 12) {
+	// call rateStar() if number of try exceeds 14
+	if (parseInt(numMove.html()) >= 20) {
 		rateStar(numMove.html());
 	}
 }
-// let starsNum = 3;
+
+// removes rateStar according to number of try
 let rateStar = function(numTry) {
 	let target = $(".third-star");
-	// let num = '2';
-	if (numTry === '15') {
+	if (numTry === '23') {
 		target = $(".second-star");
-		// num = '1';
 	}
-	if (numTry === '18') {
+	if (numTry === '26') {
 		target = $(".first-star");
-		// $('.num-stars').html("0");
-		// num = '0';
 	}
 	target.removeClass('fa-star').addClass('fa-star-o');
-	// $('.num-stars').html("num");
 }
-
 
 $(".card").click(function() {
 	openShowCard(this);
@@ -121,13 +113,21 @@ let starCounter = function() {
 	let list = [];
 	list = $('.fa-star');
 	$('.num-stars').html(list.length);
+	pushStarInPopup(list.length);
+
 }
+
+let pushStarInPopup = function(times) {
+	for (var i = 0; i < times; i++) {
+		$('.awards').append('<li><i class="fa fa-star magictime tinUpIn"></i></li>');
+	}
+}
+
+
 
 function startCountDown(duration, display) {
     var timer = duration, minutes, seconds;
-    var callInterval;
     callInterval = setInterval(function () {
-
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -138,12 +138,10 @@ function startCountDown(duration, display) {
 
         if (--timer < 0) {
             $(".deck").addClass("magictime puffOut");
-            var callSetTimeout;
         	callSetTimeout = setTimeout(function() {
 				$(".container").addClass("animated bounceInDown");
+				stopCountDown();
 				targetPopup("gameoverPopup");
-				clearTimeout(callSetTimeout);
-				clearInterval(callInterval);
 			}, 1000);
         }
 	}, 1000);
@@ -153,7 +151,7 @@ $(function ($) {
     let easyMode = 60 * 5,
     	mediumMode = 60 * 2,
     	extremeMode = 60 * 1,
-    	impossibleMode = 60 * 0.04,
+    	impossibleMode = 60 * 4,
         display = $('#count-down');
     startCountDown(impossibleMode, display);
 });
@@ -164,18 +162,20 @@ $(function ($) {
 // var popup = document.getElementById(targetPopup);
 // Get the <span> element that closes the popup
 var popup;
-var span = document.getElementsByClassName("close")[0];
+// var span = document.getElementsByClassName("close")[0];
 // When the user wins the game, open the popup
+var stopCountDown = function() {
+	clearTimeout(callSetTimeout);
+	clearInterval(callInterval);
+}
 var targetPopup = function(popupName) {
-	// var targetPopup = popupName;
 	popup = document.getElementById(popupName);
 	openPopup();
 }
 var openPopup = function() {
     popup.style.display = "block";
-    // targetPopup = target
 }
-// When the user clicks on <span> (x), close the popup
+// When the user clicks on (x), close the popup
 $(".close").click(function() {
 	console.log(popup);
     popup.style.display = "none";
