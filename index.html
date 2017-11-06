@@ -17,25 +17,26 @@
         <header>
             <h1>ESCAPE THE ROOM Matching Game</h1>
         </header>
+        <section class="flex">
+            <section class="help"></section>
+            <section class="score-panel">
+                <!-- <label id="minutes">00</label>:<label id="seconds">00</label> -->
+                <p>This room is locked and will EXPLODE in <span id="count-down"></span>!</p>
+                <p>The key is in the last card revealed! </p>
 
-        <section class="score-panel">
-            <!-- <label id="minutes">00</label>:<label id="seconds">00</label> -->
-            <p>This room is locked and will EXPLODE in <span id="count-down"></span>!</p>
-            <p>The key is in the last card revealed! </p>
+                <ul class="stars">
+                    <li><i class="fa fa-star first-star"></i></li>
+                    <li><i class="fa fa-star second-star"></i></li>
+                    <li><i class="fa fa-star third-star"></i></li>
+                </ul>
 
-        	<ul class="stars">
-        		<li><i class="fa fa-star first-star"></i></li>
-        		<li><i class="fa fa-star second-star"></i></li>
-        		<li><i class="fa fa-star third-star"></i></li>
-        	</ul>
+                <span class="moves">0</span> Moves
 
-        	<span class="moves">0</span> Moves
-
-            <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
+                <div class="restart">
+                    <i class="fa fa-repeat"></i>
+                </div>
+            </section>
         </section>
-
         <ul class="deck">
             <li class="card">
                 <i class="fa fa-diamond"></i>
@@ -92,7 +93,8 @@
     <!-- finish popup content -->
         <div class="popup-content">
             <span class="close">&times;</span>
-            <i class="padding-top fa fa-check-circle-o"></i>
+            <!-- <i class="padding-top fa fa-check-circle-o"></i> -->
+            <div class ="muah"></div>
             <p>Congratulations! You Won!</p>
             <ul class="awards"></ul>
             <p>With <span class="moves">0</span> moves and <span class="num-stars">3</span> Stars.</p>
