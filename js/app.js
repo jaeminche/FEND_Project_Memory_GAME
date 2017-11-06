@@ -22,7 +22,6 @@ let displayCard = function() {
 		newCardList.push(cardList[i]);
 	}
 	$(".deck").html(newCardList);
-
 }
 
 displayCard();
@@ -53,9 +52,6 @@ let restart = function() {
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flip");
-	// 밑에꺼 봐봐
-	// $(cardSelected).children.remove();
-	// $(cardSelected).preppend("<div class='key'></div>");
 	$(cardSelected).css("pointer-events", "none");
 	pushCardInList(cardSelected);
 }
@@ -73,28 +69,27 @@ let pushCardInList = function(cardSltd) {
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
 			// 밑에꺼 봐봐
-			$(listForMatch).addClass("match animated rubberband");
+			$(listForMatch).removeClass("flip").addClass("match tada");
+			listForMatch = [];
 			totalMatch++;
 			// if user finishes the game
 			if (totalMatch === 8) {
 				t1 = performance.now()
 				// return the key for the last card revealed!
-				$(cardSltd).children().removeClass(classNmOfCard).addClass('fa fa-key animated bounceInLeft');
+				$(cardSltd).children().removeClass(classNmOfCard).addClass('fa fa-key magictime tinUpIn');
 				stopCountDown();
 				starCounter();
-				// 밑에꺼 봐봐
-				// $(cardSltd).addClass("key magictime spaceInLeft");
 				setTimeout(function() {
 					targetPopup("finishPopup");
-				}, 5000);
+				}, 3500);
 			}
 			$(listForMatch).off('click');
 			listOfCardClassNm = [];
 		} else {
 			$(".card").css("pointer-events", "none");
+			$(listForMatch).removeClass("flip").addClass("not-match jello")
 			setTimeout(function() {
-				// 밑에꺼 봐봐
-				$(listForMatch).addClass("jello").removeClass("open show animated flip jello");
+				$(listForMatch).removeClass("open show not-match animated jello");
 				listForMatch = [];
 				$(".card").css("pointer-events", "auto");
 			}, 700);
@@ -140,7 +135,6 @@ let pushStarInPopup = function(times) {
 	for (var i = 0; i < times; i++) {
 		$('.awards').append('<li><i class="fa fa-star magictime tinUpIn"></i></li>');
 	}
-	// $('.awards').append('<li class="key magictime spaceInLeft"></li>');
 }
 
 let getTimeSpent = function() {
@@ -222,48 +216,8 @@ var closePopup = function() {
 }
 
 
-//plain timer
-// var minutesLabel = document.getElementById("minutes");
-// var secondsLabel = document.getElementById("seconds");
-// var totalSeconds = 0;
-// setInterval(setTime, 1000);
-
-// function setTime()
-// {
-//     ++totalSeconds;
-//     secondsLabel.innerHTML = pad(totalSeconds%60);
-//     minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
-// }
-
-// function pad(val)
-// {
-//     var valString = val + "";
-//     if(valString.length < 2)
-//     {
-//         return "0" + valString;
-//     }
-//     else
-//     {
-//         return valString;
-//     }
-// }
-//plain timer ends
 
 
-
-
-// const listShow = [];
-// $(".card").click(function() {
-// 	$(this).addClass("open show");
-// 	var cardClass = $(this).children().attr('class');
-// 	listShow.push(cardClass);
-// 	if (listShow[0] === listShow[1]) {
-// 		// console.log("match");
-
-// 	} else {
-// 		console.log("unmatch");
-// 	}
-// })
 
 /*
  * set up the event listener for a card. If a card is clicked:

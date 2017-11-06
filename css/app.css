@@ -73,7 +73,8 @@ h1 {
 
 .deck .card.open {
     transform: rotateY(0);
-    background: #02b3e4;
+    /*background: #02b3e4;*/
+    background: #808080;
     cursor: default;
 }
 
@@ -83,8 +84,13 @@ h1 {
 
 .deck .card.match {
     cursor: default;
-    background: #02ccba;
+    /*background: #02ccba;*/
+    background: #0000FF;
     font-size: 33px;
+}
+
+.deck .card.not-match {
+    background: #f42;
 }
 
 .flex {
