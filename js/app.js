@@ -96,7 +96,7 @@ let incrementMoveCnt = function() {
 	let numMove = $(".moves");
 	numMove.html(parseInt(numMove.html()) + 1);
 	// call rateStar() if number of try exceeds 14
-	if (parseInt(numMove.html()) >= 20) {
+	if (parseInt(numMove.html()) >= 14) {
 		rateStar(numMove.html());
 	}
 }
@@ -104,10 +104,10 @@ let incrementMoveCnt = function() {
 // removes rateStar according to number of try
 let rateStar = function(numTry) {
 	let target = $(".third-star");
-	if (numTry === '23') {
+	if (numTry === '18') {
 		target = $(".second-star");
 	}
-	if (numTry === '26') {
+	if (numTry === '25') {
 		target = $(".first-star");
 	}
 	target.removeClass('fa-star').addClass('fa-star-o');
@@ -155,7 +155,7 @@ function startCountDown(duration, display) {
         	callSetTimeout = setTimeout(function() {
 				stopCountDown();
 				$('.time-spent').text()
-				$(".container").addClass("animated fail-image bounceInDown");
+				$(".container").addClass("magictime fail-image tinUpIn");
 				targetPopup("gameoverPopup");
 			}, 1000);
         }
