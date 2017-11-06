@@ -44,8 +44,12 @@ function shuffle(array) {
 }
 
 $(".restart").click(function() {
-	location.reload();
+	restart();
 })
+
+let restart = function() {
+	location.reload();
+}
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flip");
@@ -72,7 +76,6 @@ let pushCardInList = function(cardSltd) {
 				t1 = performance.now()
 				stopCountDown();
 				starCounter();
-				getTimeSpent();
 				targetPopup("finishPopup");
 			}
 			$(listForMatch).off('click');
@@ -150,9 +153,9 @@ function startCountDown(duration, display) {
         if (--timer < 0) {
             $(".deck").addClass("magictime puffOut");
         	callSetTimeout = setTimeout(function() {
-				$(".container").addClass("animated bounceInDown");
 				stopCountDown();
 				$('.time-spent').text()
+				$(".container").addClass("animated fail-image bounceInDown");
 				targetPopup("gameoverPopup");
 			}, 1000);
         }
@@ -160,25 +163,21 @@ function startCountDown(duration, display) {
 }
 
 $(function ($) {
-    let easyMode = 60 * 5,
-    	mediumMode = 60 * 2,
-    	extremeMode = 60 * 1,
-    	impossibleMode = 60 * 4,
+    let easyMode = 60 * 3,
+    	mediumMode = 60 * 1,
+    	impossibleMode = 60 * 1,
         display = $('#count-down');
     startCountDown(impossibleMode, display);
 });
 
 var stopCountDown = function() {
+	getTimeSpent();
 	clearTimeout(callSetTimeout);
 	clearInterval(callInterval);
 }
 
  // Get the popup
-// var finishPopup = document.getElementById('finishPopup');
-// var popup = document.getElementById(targetPopup);
-// Get the <span> element that closes the popup
 var popup;
-// var span = document.getElementsByClassName("close")[0];
 // When the user wins the game, open the popup
 var targetPopup = function(popupName) {
 	popup = document.getElementById(popupName);
@@ -189,17 +188,26 @@ var openPopup = function() {
 }
 // When the user clicks on (x), close the popup
 $(".close").click(function() {
-	console.log(popup);
-    popup.style.display = "none";
+    closePopup();
 })
 // When the user clicks anywhere outside of the popup, close it
 window.onclick = function(event) {
     if (event.target == popup) {
-        popup.style.display = "none";
+    	closePopup();
     }
 }
 
 
+$('.button').click(function() {
+	restart();
+})
+
+var closePopup = function() {
+    popup.style.display = "none";
+    $(".deck").removeClass("magictime puffOut");
+    $(".card").off('click');
+    $(".card").addClass("open show animated flipInX");
+}
 
 
 //plain timer
