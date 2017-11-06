@@ -53,6 +53,9 @@ let restart = function() {
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flip");
+	// 밑에꺼 봐봐
+	// $(cardSelected).children.remove();
+	// $(cardSelected).preppend("<div class='key'></div>");
 	$(cardSelected).css("pointer-events", "none");
 	pushCardInList(cardSelected);
 }
@@ -69,21 +72,29 @@ let pushCardInList = function(cardSltd) {
 	if (listOfCardClassNm.length === 2) {
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
-			$(listForMatch).addClass("match");
+			// 밑에꺼 봐봐
+			$(listForMatch).addClass("match animated rubberband");
 			totalMatch++;
 			// if user finishes the game
 			if (totalMatch === 8) {
 				t1 = performance.now()
+				// return the key for the last card revealed!
+				$(cardSltd).children().removeClass(classNmOfCard).addClass('fa fa-key animated bounceInLeft');
 				stopCountDown();
 				starCounter();
-				targetPopup("finishPopup");
+				// 밑에꺼 봐봐
+				// $(cardSltd).addClass("key magictime spaceInLeft");
+				setTimeout(function() {
+					targetPopup("finishPopup");
+				}, 5000);
 			}
 			$(listForMatch).off('click');
 			listOfCardClassNm = [];
 		} else {
 			$(".card").css("pointer-events", "none");
 			setTimeout(function() {
-				$(listForMatch).removeClass("open show animated flip");
+				// 밑에꺼 봐봐
+				$(listForMatch).addClass("jello").removeClass("open show animated flip jello");
 				listForMatch = [];
 				$(".card").css("pointer-events", "auto");
 			}, 700);
@@ -129,6 +140,7 @@ let pushStarInPopup = function(times) {
 	for (var i = 0; i < times; i++) {
 		$('.awards').append('<li><i class="fa fa-star magictime tinUpIn"></i></li>');
 	}
+	// $('.awards').append('<li class="key magictime spaceInLeft"></li>');
 }
 
 let getTimeSpent = function() {

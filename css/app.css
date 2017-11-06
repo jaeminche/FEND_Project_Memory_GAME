@@ -32,10 +32,8 @@ h1 {
     font-family: 'Corben', Georgia, Times, serif;
     font-size: 40px;
     line-height: 55px;
-
- /*   font-family: 'Open Sans', sans-serif;
-    font-weight: 300;*/
 }
+
 
 /*
  * Styles for the deck of cards
@@ -137,7 +135,10 @@ h1 {
     cursor: pointer;
 }
 
-
+.fa-key {
+    color: yellow;
+    font-size: 90px;
+}
 
 
 /* The popup (background) */
@@ -217,6 +218,18 @@ h1 {
     margin: 3em;
     display: inline-block;
     /*position: relative;*/
+}
+
+
+.key {
+    background-image: url(../img/key.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 0.3em;
+    padding: 1em;
+    margin-left: 0.3em;
+    font-size: 0.5em;
 }
 
 .muah {
