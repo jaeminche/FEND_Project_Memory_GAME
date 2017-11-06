@@ -51,7 +51,7 @@ let restart = function() {
 }
 
 let openShowCard = function(cardSelected) {
-	$(cardSelected).addClass("open show animated flip");
+	$(cardSelected).addClass("open show animated flipInY");
 	$(cardSelected).css("pointer-events", "none");
 	pushCardInList(cardSelected);
 }
@@ -69,7 +69,7 @@ let pushCardInList = function(cardSltd) {
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
 			// 밑에꺼 봐봐
-			$(listForMatch).removeClass("flip").addClass("match tada");
+			$(listForMatch).removeClass("flipInY").addClass("match tada");
 			listForMatch = [];
 			totalMatch++;
 			// if user finishes the game
@@ -87,7 +87,7 @@ let pushCardInList = function(cardSltd) {
 			listOfCardClassNm = [];
 		} else {
 			$(".card").css("pointer-events", "none");
-			$(listForMatch).removeClass("flip").addClass("not-match jello")
+			$(listForMatch).removeClass("flipInY").addClass("not-match jello")
 			setTimeout(function() {
 				$(listForMatch).removeClass("open show not-match animated jello");
 				listForMatch = [];
