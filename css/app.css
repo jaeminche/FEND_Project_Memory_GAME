@@ -111,6 +111,24 @@ h1 {
 /*    position: relative;
 */}
 
+.bigger-help {
+    background: url(../img/help.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 4px;
+    border: none;
+    width: 8em;
+    padding: 8em;
+    margin: 3em 3em 1em;
+    display: inline-block;
+}
+
+.select-mode {
+    display: flex;
+    justify-content: center;
+}
+
 
 /*
  * Styles for the Score Panel and awards
@@ -253,7 +271,7 @@ h1 {
 */}
 
 
-.button {
+.play-again {
     border-radius: 4px;
     background-color: orange;
     border: none;
@@ -267,14 +285,14 @@ h1 {
     margin: 1em 1em 2em;
 }
 
-.button span {
+.play-again span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-.button span:after {
+.play-again span:after {
     content: "!!!";
     position: absolute;
     opacity: 0;
@@ -283,11 +301,23 @@ h1 {
     transition: 0.5s;
 }
 
-.button:hover span {
+.play-again:hover span {
     padding-right: 1em;
 }
 
-.button:hover span:after {
+.play-again:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+.select-mode:hover span {
+    padding-right: 3em;
+}
+.easy-mode span:after {
+    content: "3 min";
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -0.04em;
+    transition: 0.5s;
 }

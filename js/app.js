@@ -68,7 +68,6 @@ let pushCardInList = function(cardSltd) {
 	if (listOfCardClassNm.length === 2) {
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
-			// 밑에꺼 봐봐
 			$(listForMatch).removeClass("flipInY").addClass("match tada");
 			listForMatch = [];
 			totalMatch++;
@@ -168,13 +167,29 @@ function startCountDown(duration, display) {
 	}, 1000);
 }
 
+// let easyMode, mediumMode, impossibleMode;
+
+let selectMode = function(inputMode) {
+    popup.style.display = "none";
+    startCountDown(inputMode, display);
+};
+let easyMode = 60 * 3,
+	mediumMode = 60 * 1.5,
+	impossibleMode = 50,
+	display = $('#count-down');
+$('.easy-mode').click(function() {
+	selectMode(easyMode);
+})
+$('.medium-mode').click(function() {
+	selectMode(mediumMode);
+})
+$('.impossible-mode').click(function() {
+	selectMode(impossibleMode);
+})
+
 $(function ($) {
-    let easyMode = 60 * 3,
-    	mediumMode = 60 * 1,
-    	impossibleMode = 60 * 1,
-        display = $('#count-down');
-    startCountDown(impossibleMode, display);
-});
+	targetPopup("startPopup");
+})
 
 var stopCountDown = function() {
 	getTimeSpent();
@@ -199,12 +214,14 @@ $(".close").click(function() {
 // When the user clicks anywhere outside of the popup, close it
 window.onclick = function(event) {
     if (event.target == popup) {
-    	closePopup();
+    	if ($(popup).attr('id') != 'startPopup') {
+    		closePopup();
+    	}
     }
 }
 
 
-$('.button').click(function() {
+$('.play-again').click(function() {
 	restart();
 })
 
@@ -214,6 +231,7 @@ var closePopup = function() {
     $(".card").off('click');
     $(".card").addClass("open show animated flipInX");
 }
+
 
 
 
