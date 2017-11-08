@@ -41,6 +41,8 @@ h1 {
 
 #count-down {
     color: red;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 .deck {
@@ -73,24 +75,26 @@ h1 {
 
 .deck .card.open {
     transform: rotateY(0);
-    /*background: #02b3e4;*/
     background: #2e3d49;
     cursor: default;
+    pointer-events: none;
 }
 
 .deck .card.show {
     font-size: 33px;
+    pointer-events: none;
 }
 
 .deck .card.match {
     cursor: default;
-    /*background: #02ccba;*/
     background: #0000FF;
     font-size: 33px;
+    pointer-events: none !important;
 }
 
 .deck .card.not-match {
     background: #f42;
+    pointer-events: none;
 }
 
 .flex {
@@ -136,7 +140,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 355px;
     margin-bottom: 10px;
 }
 
@@ -267,22 +271,29 @@ h1 {
     padding: 8em;
     margin: 3em 3em 1em;
     display: inline-block;
-/*    position: relative;
-*/}
-
+}
 
 .play-again {
-    border-radius: 4px;
-    background-color: orange;
-    border: none;
-    color: #FFFFFF;
+    font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    background: orange;
     text-align: center;
-    font-size: 1.3em;
-    padding: 0.5em;
-    width: 8em;
     transition: all 0.5s;
     cursor: pointer;
-    margin: 1em 1em 2em;
+    margin: 1em auto 2em;
+    height: 50px;
+    width: 125px;
+    font-size: 0.9rem;
+    color: #fff;
+    text-align: center;
+    line-height: normal;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .play-again span {
@@ -293,7 +304,7 @@ h1 {
 }
 
 .play-again span:after {
-    content: "!!!";
+    content: "!!";
     position: absolute;
     opacity: 0;
     top: 0;
@@ -310,14 +321,60 @@ h1 {
     right: 0;
 }
 
-.select-mode:hover span {
-    padding-right: 3em;
+
+
+
+.select-mode {
+    display: flex;
+    align-items: center;
+    margin: 0 0 3em;
 }
-.easy-mode span:after {
-    content: "3 min";
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -0.04em;
-    transition: 0.5s;
+
+.easy {
+    background: #808080;
 }
+
+.medium {
+    background: #0000FF;
+}
+
+.impossible {
+    background: orange;
+}
+
+.select-mode .mode {
+    height: 50px;
+    width: 125px;
+    font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-size: 0.9rem;
+    color: #fff;
+    text-align: center;
+    line-height: normal;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.3em;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+
+
+
+/*@media screen and (max-width: 415px) {
+    html {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 416px) and (max-width: 1025px) {
+    html {
+        width: 90%;
+    }
+}
+
+*/

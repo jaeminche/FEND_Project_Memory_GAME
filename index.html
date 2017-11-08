@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>Matching Game</title>
     <meta name="description" content="">
+    <link rel="shortcut icon" type="image/ico" href="img/favicon.ico">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Corben">
@@ -21,8 +23,7 @@
         <section class="flex">
             <section class="help"></section>
             <section class="score-panel">
-                <!-- <label id="minutes">00</label>:<label id="seconds">00</label> -->
-                <p>This room is locked and will EXPLODE in <span id="count-down"></span>!</p>
+                <p>This room is locked and will EXPLODE in  <span id="count-down"></span>!</p>
                 <p>The key is in the last card revealed! </p>
 
                 <ul class="stars">
@@ -94,13 +95,13 @@
     <!-- finish popup content -->
         <div class="popup-content">
             <section class="bigger-help"></section>
-            <p>I'm locked up in this room, and it will EXPLODE soon!</p>
+            <p>Mel is locked up in this room, and it will EXPLODE soon!</p>
             <p>Match all the cards to get the key in the last one revealed!</p>
             <p>SELECT A MODE!</p>
             <section class="select-mode">
-                <button class="easy-mode button"><span>easy mode </span></button>
-                <button class="medium-mode button"><span>medium mode </span></button>
-                <button class="impossible-mode button"><span>impossible mode </span></button>
+                <button class="mode easy"><span>easy </span></button>
+                <button class="mode medium"><span>medium </span></button>
+                <button class="mode impossible"><span>impossible </span></button>
             </section>
         </div>
     </div>

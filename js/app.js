@@ -1,16 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
-// let cardList = [];
-// cardList = $(".card");
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-var callSetTimeout, callInterval;
+let callSetTimeout, callInterval;
 
 let displayCard = function() {
 	let cardList = [];
@@ -52,50 +40,84 @@ let restart = function() {
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flipInY");
-	$(cardSelected).css("pointer-events", "none");
+
+	//Todo: make new object instance for each pair
+
 	pushCardInList(cardSelected);
 }
 
 let t0, t1, timeSpent;
-
 let listOfCardClassNm = [];
-let listForMatch = [];
+let listForPair = [];
+
 let totalMatch = 0;
+// Push a pair in a list and see if they match
 let pushCardInList = function(cardSltd) {
-	var classNmOfCard = $(cardSltd).children().attr('class');
+
+	let classNmOfCard = $(cardSltd).children().attr('class');
 	listOfCardClassNm.push(classNmOfCard);
-	listForMatch.push(cardSltd);
+	listForPair.push(cardSltd);
 	if (listOfCardClassNm.length === 2) {
+		$(".card").css("pointer-events", "none");
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
-			$(listForMatch).removeClass("flipInY").addClass("match tada");
-			listForMatch = [];
+			// if the pair match, execute a tada animation skipping the flip animation
+			$(listForPair).removeClass("flipInY").addClass("match tada");
+			setTimeout(function() {
+				$(listForPair).removeClass("open show animated tada");
+				listForPair = [];
+				$(".card").css("pointer-events", "auto");
+			}, 500);
+			listOfCardClassNm = [];
+
+			// $(this).css("pointer-events", "none");
+			// listForPair = [];
 			totalMatch++;
-			// if user finishes the game
+			// Condition for all the matches completed
 			if (totalMatch === 8) {
+				// Get the end time
 				t1 = performance.now()
-				// return the key for the last card revealed!
+				// Return a font-awesome key and its animation for the last card revealed
 				$(cardSltd).children().removeClass(classNmOfCard).addClass('fa fa-key magictime tinUpIn');
 				stopCountDown();
 				starCounter();
 				setTimeout(function() {
 					targetPopup("finishPopup");
-				}, 3500);
+				}, 3000);
 			}
-			$(listForMatch).off('click');
-			listOfCardClassNm = [];
+			// listOfCardClassNm = [];
+			// $(".card").css("pointer-events", "auto");
+			// console.log(listForPair);
+			// $(listForPair).off('click');
+
 		} else {
-			$(".card").css("pointer-events", "none");
-			$(listForMatch).removeClass("flipInY").addClass("not-match jello")
+			$(listForPair).removeClass("flipInY").addClass("not-match jello")
+			// listOfCardClassNm = [];
+			// $(".card").css("pointer-events", "auto");
 			setTimeout(function() {
-				$(listForMatch).removeClass("open show not-match animated jello");
-				listForMatch = [];
+				$(listForPair).removeClass("open show not-match animated jello");
+				listForPair = [];
 				$(".card").css("pointer-events", "auto");
-			}, 700);
+			}, 500);
 			listOfCardClassNm = [];
 		}
 	}
 }
+
+
+
+
+// function() {
+// $('*').each(function() {
+//     if ($(this).hasClass('match')) {
+//         $(this).css("pointer-events", "none");
+//     }
+// }
+// }
+
+// $('.match').onclick(){
+// 	$(this).css("pointer-events", "none");
+// }
 
 let incrementMoveCnt = function() {
 	let numMove = $(".moves");
@@ -131,7 +153,7 @@ let starCounter = function() {
 }
 
 let pushStarInPopup = function(times) {
-	for (var i = 0; i < times; i++) {
+	for (let i = 0; i < times; i++) {
 		$('.awards').append('<li><i class="fa fa-star magictime tinUpIn"></i></li>');
 	}
 }
@@ -145,7 +167,7 @@ let getTimeSpent = function() {
 
 function startCountDown(duration, display) {
 	t0 = performance.now();
-    var timer = duration, minutes, seconds;
+    let timer = duration, minutes, seconds;
     callInterval = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -167,44 +189,47 @@ function startCountDown(duration, display) {
 	}, 1000);
 }
 
-// let easyMode, mediumMode, impossibleMode;
 
 let selectMode = function(inputMode) {
     popup.style.display = "none";
     startCountDown(inputMode, display);
 };
-let easyMode = 60 * 3,
-	mediumMode = 60 * 1.5,
-	impossibleMode = 50,
-	display = $('#count-down');
-$('.easy-mode').click(function() {
-	selectMode(easyMode);
+
+easy = 60 * 3,
+medium = 60 * 1.5,
+impossible = 50,
+display = $('#count-down');
+
+$('.mode').click(function() {
+	let thisButton = $(this);
+	setTimeout(function() {
+		selectMode(window[thisButton.attr('class').split(' ')[1]]);
+	}, 700);
+
 })
-$('.medium-mode').click(function() {
-	selectMode(mediumMode);
-})
-$('.impossible-mode').click(function() {
-	selectMode(impossibleMode);
+
+$('.mode').click(function() {
+	$(this).addClass('animated flipInY');
 })
 
 $(function ($) {
 	targetPopup("startPopup");
 })
 
-var stopCountDown = function() {
+let stopCountDown = function() {
 	getTimeSpent();
 	clearTimeout(callSetTimeout);
 	clearInterval(callInterval);
 }
 
  // Get the popup
-var popup;
+let popup;
 // When the user wins the game, open the popup
-var targetPopup = function(popupName) {
+let targetPopup = function(popupName) {
 	popup = document.getElementById(popupName);
 	openPopup();
 }
-var openPopup = function() {
+let openPopup = function() {
     popup.style.display = "block";
 }
 // When the user clicks on (x), close the popup
@@ -225,7 +250,7 @@ $('.play-again').click(function() {
 	restart();
 })
 
-var closePopup = function() {
+let closePopup = function() {
     popup.style.display = "none";
     $(".deck").removeClass("magictime puffOut");
     $(".card").off('click');
