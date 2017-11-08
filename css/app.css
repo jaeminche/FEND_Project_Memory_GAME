@@ -77,10 +77,12 @@ h1 {
     transform: rotateY(0);
     background: #2e3d49;
     cursor: default;
+    pointer-events: none;
 }
 
 .deck .card.show {
     font-size: 33px;
+    pointer-events: none;
 }
 
 .deck .card.match {
@@ -92,6 +94,7 @@ h1 {
 
 .deck .card.not-match {
     background: #f42;
+    pointer-events: none;
 }
 
 .flex {

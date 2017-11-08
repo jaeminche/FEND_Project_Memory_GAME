@@ -40,9 +40,15 @@ let restart = function() {
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flipInY");
-	$(cardSelected).css("pointer-events", "none");
 	pushCardInList(cardSelected);
 }
+
+
+let Pair = function() {};
+Pair.prototype.create = function(a, b) {
+	return [a, b]
+};
+let pairHolder = new Pair();
 
 let t0, t1, timeSpent;
 let listOfCardClassNm = [];
@@ -54,7 +60,8 @@ let pushCardInList = function(cardSltd) {
 	listOfCardClassNm.push(classNmOfCard);
 	listForPair.push(cardSltd);
 	if (listOfCardClassNm.length === 2) {
-		// 여기
+
+		let pair = pairHolder.create(listForPair[0], listForPair[1]);
 		incrementMoveCnt();
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
 			// if the pair match, execute a tada animation skipping the flip animation
@@ -76,17 +83,17 @@ let pushCardInList = function(cardSltd) {
 			}
 		} else {
 			// if the pair doesn't match, execute a jello animation skipping the flip animation
-			$(".card").css("pointer-events", "none");
-			$(listForPair).removeClass("flipInY").addClass("not-match jello")
+			$(pair).removeClass("flipInY").addClass("not-match jello")
+			listForPair = [];
 			setTimeout(function() {
-				$(listForPair).removeClass("open show not-match animated jello");
-				listForPair = [];
-				$(".card").css("pointer-events", "auto");
-			}, 500);
+				$(pair).removeClass("open show not-match animated jello");
+			}, 1000);
 			listOfCardClassNm = [];
 		}
 	}
 }
+
+
 
 let incrementMoveCnt = function() {
 	let numMove = $(".moves");
