@@ -47,7 +47,6 @@ let openShowCard = function(cardSelected) {
 let t0, t1, timeSpent;
 let listOfCardClassNm = [];
 let listForPair = [];
-
 let totalMatch = 0;
 // Push a pair in a list and see if they match
 let pushCardInList = function(cardSltd) {
@@ -55,19 +54,12 @@ let pushCardInList = function(cardSltd) {
 	listOfCardClassNm.push(classNmOfCard);
 	listForPair.push(cardSltd);
 	if (listOfCardClassNm.length === 2) {
-		$(".card").css("pointer-events", "none");
+		// 여기
 		incrementMoveCnt();
-		let getReadyNextClick = function(targetClass) {
-			$(listForPair).removeClass(targetClass);
-			listForPair = [];
-			$(".card").css("pointer-events", "auto");
-		}
 		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
 			// if the pair match, execute a tada animation skipping the flip animation
 			$(listForPair).removeClass("flipInY").addClass("match tada");
-			setTimeout(function() {
-				getReadyNextClick("open show animated tada")
-			}, 500);
+			listForPair = [];
 			listOfCardClassNm = [];
 			totalMatch++;
 			// Condition for all the matches completed
@@ -84,9 +76,12 @@ let pushCardInList = function(cardSltd) {
 			}
 		} else {
 			// if the pair doesn't match, execute a jello animation skipping the flip animation
+			$(".card").css("pointer-events", "none");
 			$(listForPair).removeClass("flipInY").addClass("not-match jello")
 			setTimeout(function() {
-				getReadyNextClick("open show not-match animated jello")
+				$(listForPair).removeClass("open show not-match animated jello");
+				listForPair = [];
+				$(".card").css("pointer-events", "auto");
 			}, 500);
 			listOfCardClassNm = [];
 		}
