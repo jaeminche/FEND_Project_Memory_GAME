@@ -40,9 +40,6 @@ let restart = function() {
 
 let openShowCard = function(cardSelected) {
 	$(cardSelected).addClass("open show animated flipInY");
-
-	//Todo: make new object instance for each pair
-
 	pushCardInList(cardSelected);
 }
 
@@ -69,9 +66,6 @@ let pushCardInList = function(cardSltd) {
 				$(".card").css("pointer-events", "auto");
 			}, 500);
 			listOfCardClassNm = [];
-
-			// $(this).css("pointer-events", "none");
-			// listForPair = [];
 			totalMatch++;
 			// Condition for all the matches completed
 			if (totalMatch === 8) {
@@ -85,15 +79,9 @@ let pushCardInList = function(cardSltd) {
 					targetPopup("finishPopup");
 				}, 3000);
 			}
-			// listOfCardClassNm = [];
-			// $(".card").css("pointer-events", "auto");
-			// console.log(listForPair);
-			// $(listForPair).off('click');
-
 		} else {
+			// if the pair doesn't match, execute a jello animation skipping the flip animation
 			$(listForPair).removeClass("flipInY").addClass("not-match jello")
-			// listOfCardClassNm = [];
-			// $(".card").css("pointer-events", "auto");
 			setTimeout(function() {
 				$(listForPair).removeClass("open show not-match animated jello");
 				listForPair = [];
@@ -103,21 +91,6 @@ let pushCardInList = function(cardSltd) {
 		}
 	}
 }
-
-
-
-
-// function() {
-// $('*').each(function() {
-//     if ($(this).hasClass('match')) {
-//         $(this).css("pointer-events", "none");
-//     }
-// }
-// }
-
-// $('.match').onclick(){
-// 	$(this).css("pointer-events", "none");
-// }
 
 let incrementMoveCnt = function() {
 	let numMove = $(".moves");
@@ -244,7 +217,6 @@ window.onclick = function(event) {
     	}
     }
 }
-
 
 $('.play-again').click(function() {
 	restart();
