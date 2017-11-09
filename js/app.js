@@ -167,22 +167,23 @@ let callSetTimeout, callInterval,
 		}, 1000);
 	};
 
-/**
- *
- * @param {string}
- */
+/** @global */
 easy = 60 * 3,
 medium = 60 * 1.5,
 impossible = 50,
 display = $('#count-down');
 
+/**
+ * Pass in an user-selected mode as a parameter
+ * @param {number} inputMode - 180|90|50 (easy|medium|impossible) each
+ */
 let selectMode = function(inputMode) {
 	    popup.style.display = 'none';
 	    startCountDown(inputMode, display);
 };
 
 /**
- * Selects a game mode by getting the selected name which is also a class name, passing it as a parameter in selectMode() called.
+ * Selects a game mode by getting the selected mode name which also is the id name, and then passing it as a parameter in selectMode() called.
  * @returns {string} easy|medium|impossible - user gets to select one of these modes
  */
 $('.mode').click(function() {
