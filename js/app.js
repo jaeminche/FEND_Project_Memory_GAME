@@ -1,19 +1,5 @@
 let callSetTimeout, callInterval;
 
-let displayCard = function() {
-	let cardList = [];
-	cardList = $(".card");
-	cardList = shuffle(cardList);
-	let newCardList = [];
-	for (let i = 0; i < cardList.length; i++) {
-		$(cardList[i]).removeClass("open show match");
-		newCardList.push(cardList[i]);
-	}
-	$(".deck").html(newCardList);
-}
-
-displayCard();
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -30,79 +16,29 @@ function shuffle(array) {
     return array;
 }
 
-$(".restart").click(function() {
-	restart();
-})
+let displayCard = function() {
+	let cardList = [];
+	cardList = $(".card");
+	cardList = shuffle(cardList);
+	let newCardList = [];
+	for (let i = 0; i < cardList.length; i++) {
+		$(cardList[i]).removeClass("open show match");
+		newCardList.push(cardList[i]);
+	}
+	$(".deck").html(newCardList);
+}
 
 let restart = function() {
 	location.reload();
 }
 
-let openShowCard = function(cardSelected) {
-	$(cardSelected).addClass("open show animated flipInY");
-	pushCardInList(cardSelected);
-}
+displayCard();
+
+$(".restart").click(function() {
+	restart();
+})
 
 
-let Pair = function() {};
-Pair.prototype.create = function(a, b) {
-	return [a, b]
-};
-let pairHolder = new Pair();
-
-let t0, t1, timeSpent;
-let listOfCardClassNm = [];
-let listForPair = [];
-let totalMatch = 0;
-// Push a pair in a list and see if they match
-let pushCardInList = function(cardSltd) {
-	let classNmOfCard = $(cardSltd).children().attr('class');
-	listOfCardClassNm.push(classNmOfCard);
-	listForPair.push(cardSltd);
-	if (listOfCardClassNm.length === 2) {
-
-		let pair = pairHolder.create(listForPair[0], listForPair[1]);
-		incrementMoveCnt();
-		if (listOfCardClassNm[0] === listOfCardClassNm[1]) {
-			// if the pair match, execute a tada animation skipping the flip animation
-			$(listForPair).removeClass("flipInY").addClass("match tada");
-			listForPair = [];
-			listOfCardClassNm = [];
-			totalMatch++;
-			// Condition for all the matches completed
-			if (totalMatch === 8) {
-				// Get the end time
-				t1 = performance.now()
-				// Return a font-awesome key and its animation for the last card revealed
-				$(cardSltd).children().removeClass(classNmOfCard).addClass('fa fa-key magictime tinUpIn');
-				stopCountDown();
-				starCounter();
-				setTimeout(function() {
-					targetPopup("finishPopup");
-				}, 2500);
-			}
-		} else {
-			// if the pair doesn't match, execute a jello animation skipping the flip animation
-			$(pair).removeClass("flipInY").addClass("not-match jello")
-			listForPair = [];
-			setTimeout(function() {
-				$(pair).removeClass("open show not-match animated jello");
-			}, 1000);
-			listOfCardClassNm = [];
-		}
-	}
-}
-
-
-
-let incrementMoveCnt = function() {
-	let numMove = $(".moves");
-	numMove.html(parseInt(numMove.html()) + 1);
-	// call rateStar() if number of try exceeds 14
-	if (parseInt(numMove.html()) >= 14) {
-		rateStar(numMove.html());
-	}
-}
 
 // removes rateStar according to number of try
 let rateStar = function(numTry) {
@@ -114,6 +50,68 @@ let rateStar = function(numTry) {
 		target = $(".first-star");
 	}
 	target.removeClass('fa-star').addClass('fa-star-o');
+}
+
+let incrementMoveCnt = function() {
+	let numMove = $(".moves");
+	numMove.html(parseInt(numMove.html()) + 1);
+	// call rateStar() if number of try exceeds 14
+	if (parseInt(numMove.html()) >= 14) {
+		rateStar(numMove.html());
+	}
+}
+
+let t0, t1, timeSpent;
+let listOfTwoSymbols = [];
+let memoryForPair = [];
+let totalMatch = 0;
+let Pair = function() {};
+
+let displayMotion = function(cards, motion) {
+	$(cards).removeClass("flipInY").addClass(motion);
+	memoryForPair = [];
+	listOfTwoSymbols = [];
+}
+
+Pair.prototype.create = function(a, b) {
+	return [a, b]
+};
+let pairHolder = new Pair();
+// Push a pair in a list and see if they match
+let displayCdSymbol = function(cardSltd) {
+	let nameOfSymbol = $(cardSltd).children().attr('class');
+	listOfTwoSymbols.push(nameOfSymbol);
+	memoryForPair.push(cardSltd);
+	// everytime the list gets two cards, create new pair array in order to bypass clicking delay due to setTimeout
+	if (listOfTwoSymbols.length === 2) {
+		let pair = pairHolder.create(memoryForPair[0], memoryForPair[1]);
+		incrementMoveCnt();
+		// if the pair match, execute a tada animation
+		if (listOfTwoSymbols[0] === listOfTwoSymbols[1]) {
+			displayMotion(pair, "match tada");
+			totalMatch++;
+			// if all cards have matched, get the end time, and display a key image and its animation
+			if (totalMatch === 8) {
+				t1 = performance.now()
+				$(cardSltd).children().removeClass(nameOfSymbol).addClass('fa fa-key magictime tinUpIn');
+				stopCountDown();
+				starCounter();
+				setTimeout(function() {
+					targetPopup("finishPopup");
+				}, 2500);
+			}
+		} else { // if the pair do not match, execute a jello animation and flip them back to the initial state
+			displayMotion(pair, "not-match jello");
+			setTimeout(function() {
+				$(pair).removeClass("open show not-match animated jello");
+			}, 1000);
+		}
+	}
+}
+
+let openShowCard = function(cardSelected) {
+	$(cardSelected).addClass("open show animated flipInY");
+	displayCdSymbol(cardSelected);
 }
 
 $(".card").click(function() {
