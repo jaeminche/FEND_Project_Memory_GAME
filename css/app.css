@@ -330,15 +330,15 @@ h1 {
     margin: 0 0 3em;
 }
 
-.easy {
+#easy {
     background: #808080;
 }
 
-.medium {
+#medium {
     background: #0000FF;
 }
 
-.impossible {
+#impossible {
     background: orange;
 }
 

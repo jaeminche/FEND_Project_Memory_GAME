@@ -1,4 +1,8 @@
-// Shuffle function from http://stackoverflow.com/a/2450976
+/**
+ * Shuffle the cards.
+ * @param {array} cardlist[]
+ * @description Shuffle function from http://stackoverflow.com/a/2450976
+ */
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 	// While there remain elements to shuffle...
@@ -26,11 +30,11 @@ let displayCard = function() {
 	$('.deck').html(newCardList);
 };
 
+displayCard();
+
 let restart = function() {
 	location.reload();
 };
-
-displayCard();
 
 $('.restart').click(function() {
 	restart();
@@ -54,7 +58,6 @@ let t0, t1, timeSpent,
 		}
 		target.removeClass('fa-star').addClass('fa-star-o');
 	},
-
 	incrementMoveCnt = function() {
 		let numMove = $('.moves');
 		numMove.html(parseInt(numMove.html()) + 1);
@@ -63,7 +66,6 @@ let t0, t1, timeSpent,
 			rateStar(numMove.html());
 		}
 	},
-
 	executeMotion = function(cards, motion) {
 		$(cards).removeClass('flipInY').addClass(motion);
 		memoryForPair = [];
@@ -107,7 +109,8 @@ let displayCdSymbol = function(cardSltd) {
 					targetPopup('finishPopup');
 				}, 2500);
 			}
-		} else { // if the pair do not match, execute a jello animation and flip them back to the initial state
+		// if the pair do not match, execute a jello animation and flip them back to the initial state
+		} else {
 			executeMotion(pair, 'not-match jello');
 			setTimeout(function() {
 				$(pair).removeClass('open show not-match animated jello');
@@ -115,7 +118,6 @@ let displayCdSymbol = function(cardSltd) {
 		}
 	}
 	},
-
 /**
  * Open and Show cards selected
  * @param {string} cardSelected - element of the '.card' selected
@@ -128,11 +130,6 @@ let displayCdSymbol = function(cardSltd) {
 $('.card').click(function() {
 	openShowCard(this);
 });
-
-easy = 60 * 3,
-medium = 60 * 1.5,
-impossible = 50,
-display = $('#count-down');
 
 let callSetTimeout, callInterval,
 	getTimeSpent = function() {
@@ -168,25 +165,32 @@ let callSetTimeout, callInterval,
 				}, 1000);
 	        }
 		}, 1000);
-	},
-	selectMode = function(inputMode) {
-	    popup.style.display = 'none';
-	    startCountDown(inputMode, display);
 	};
 
 /**
+ *
+ * @param {string}
+ */
+easy = 60 * 3,
+medium = 60 * 1.5,
+impossible = 50,
+display = $('#count-down');
+
+let selectMode = function(inputMode) {
+	    popup.style.display = 'none';
+	    startCountDown(inputMode, display);
+};
+
+/**
  * Selects a game mode by getting the selected name which is also a class name, passing it as a parameter in selectMode() called.
- * @returns {string} easy|medium|impossible
+ * @returns {string} easy|medium|impossible - user gets to select one of these modes
  */
 $('.mode').click(function() {
 	let thisButton = $(this);
+	thisButton.addClass('animated flipInY');
 	setTimeout(function() {
-		selectMode(window[thisButton.attr('class').split(' ')[1]]);
+		selectMode(window[thisButton.attr('id')]);
 	}, 700);
-});
-
-$('.mode').click(function() {
-	$(this).addClass('animated flipInY');
 });
 
  // Get the popup
