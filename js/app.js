@@ -40,7 +40,7 @@ $('.restart').click(function() {
 	restart();
 });
 
-let t0, t1, timeSpent,
+let t0, t1,
 	listOfTwoSymbols = [],
 	memoryForPair = [],
 	totalMatch = 0,
@@ -239,16 +239,9 @@ $('.play-again').click(function() {
 	restart();
 });
 
+// Open the first popup for user's game mode selection
 $(function ($) {
 	targetPopup('startPopup');
 });
-
-
-
-
-
-
-
-
 
 
