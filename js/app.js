@@ -24,7 +24,7 @@ let displayCard = function() {
 	cardList = shuffle(cardList);
 	let newCardList = [];
 	for (let i = 0; i < cardList.length; i++) {
-		$(cardList[i]).removeClass('open show match animated flipInY tada');
+		$(cardList[i]).removeClass('open show match animated flipInY flipInX tada');
 		newCardList.push(cardList[i]);
 	}
 	$('.deck').html(newCardList);
@@ -34,16 +34,13 @@ displayCard();
 
 let restart = function() {
 	location.reload();
-	// stopCountDown();
-	// displayCard();
-	// targetPopup('startPopup');
 };
 
 $('.restart').click(function() {
 	restart();
 });
 
-let t0, t1,
+let target, numMove,
 	listOfTwoSymbols = [],
 	memoryForPair = [],
 	totalMatch = 0,
@@ -52,7 +49,7 @@ let t0, t1,
 	 * @param {string} numTry
 	 */
 	rateStar = function(numTry) {
-		let target = $('.third-star');
+		target = $('.third-star');
 		if (numTry === '18') {
 			target = $('.second-star');
 		}
@@ -62,7 +59,7 @@ let t0, t1,
 		target.removeClass('fa-star').addClass('fa-star-o');
 	},
 	incrementMoveCnt = function() {
-		let numMove = $('.moves');
+		numMove = $('.moves');
 		numMove.html(parseInt(numMove.html()) + 1);
 		// call rateStar() if number of try exceeds 14
 		if (parseInt(numMove.html()) >= 14) {
@@ -84,7 +81,7 @@ let pairHolder = {
 	create: function(a, b) {
 				return [a, b]
 			}
-}
+};
 
 /**
  * Push a pair in a list and see if they match
@@ -104,12 +101,12 @@ let displayCdSymbol = function(cardSltd) {
 			totalMatch++;
 			// if all cards have matched, get the end time, and display a key image and its animation
 			if (totalMatch === 8) {
-				t1 = performance.now()
 				$(cardSltd).children().removeClass(nameOfSymbol).addClass('fa fa-key magictime tinUpIn');
 				stopCountDown();
 				starCounter();
 				setTimeout(function() {
-					targetPopup('finishPopup');
+					targetPopup('winnerPopup');
+					$(cardSltd).children().removeClass('fa-key magictime tinUpIn').addClass(nameOfSymbol);
 				}, 2500);
 			}
 		// if the pair do not match, execute a jello animation and flip them back to the initial state
@@ -134,8 +131,9 @@ $('.card').click(function() {
 	openShowCard(this);
 });
 
-let callSetTimeout, callInterval,
+let callSetTimeout, callInterval, t0, t1,
 	getTimeSpent = function() {
+		t1 = performance.now()
 		timeInSec = parseInt((t1 - t0)/1000);
 	    min = parseInt(timeInSec / 60, 10);
 	    sec = parseInt(timeInSec % 60, 10);
@@ -181,8 +179,8 @@ display = $('#count-down');
  * @param {number} inputMode - 180|90|50 (easy|medium|impossible) each
  */
 let selectMode = function(inputMode) {
-	    popup.style.display = 'none';
-	    startCountDown(inputMode, display);
+    popup.style.display = 'none';
+    startCountDown(inputMode, display);
 };
 
 /**
@@ -194,12 +192,12 @@ $('.mode').click(function() {
 	thisButton.addClass('animated flipInY');
 	setTimeout(function() {
 		selectMode(window[thisButton.attr('id')]);
+		thisButton.removeClass('animated flipInY');
 	}, 700);
 });
 
- // Get the popup
-let popup,
 // When the user wins the game, open the popup
+let popup, starList,
 	targetPopup = function(popupName) {
 		popup = document.getElementById(popupName);
 		openPopup();
@@ -219,10 +217,10 @@ let popup,
 		}
 	},
 	starCounter = function() {
-		let list = [];
-		list = $('.fa-star');
-		$('.num-stars').html(list.length);
-		pushStarInPopup(list.length);
+		starList = [];
+		starList = $('.fa-star');
+		$('.num-stars').html(starList.length);
+		pushStarInPopup(starList.length);
 	};
 
 // When the user clicks on (x), close the popup
@@ -232,7 +230,7 @@ $('.close').click(function() {
 // When the user clicks anywhere outside of the popup, close it
 window.onclick = function(event) {
     if (event.target == popup) {
-    	if ($(popup).attr('id') != 'startPopup') {
+    	if ($(popup).attr('id') != 'welcomePopup') {
     		closePopup();
     	}
     }
@@ -244,7 +242,7 @@ $('.play-again').click(function() {
 
 // Open the first popup for user's game mode selection
 $(function ($) {
-	targetPopup('startPopup');
+	targetPopup('welcomePopup');
 });
 
 
