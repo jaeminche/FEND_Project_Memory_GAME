@@ -24,7 +24,7 @@ let displayCard = function() {
 	cardList = shuffle(cardList);
 	let newCardList = [];
 	for (let i = 0; i < cardList.length; i++) {
-		$(cardList[i]).removeClass('open show match');
+		$(cardList[i]).removeClass('open show match animated flipInY tada');
 		newCardList.push(cardList[i]);
 	}
 	$('.deck').html(newCardList);
@@ -34,13 +34,16 @@ displayCard();
 
 let restart = function() {
 	location.reload();
+	// stopCountDown();
+	// displayCard();
+	// targetPopup('startPopup');
 };
 
 $('.restart').click(function() {
 	restart();
 });
 
-let t0, t1, timeSpent,
+let t0, t1,
 	listOfTwoSymbols = [],
 	memoryForPair = [],
 	totalMatch = 0,
@@ -118,10 +121,10 @@ let displayCdSymbol = function(cardSltd) {
 		}
 	}
 	},
-/**
- * Open and Show cards selected
- * @param {string} cardSelected - element of the '.card' selected
- */
+	/**
+	 * Open and Show cards selected
+	 * @param {string} cardSelected - element of the '.card' selected
+	 */
 	openShowCard = function(cardSelected) {
 		$(cardSelected).addClass('open show animated flipInY');
 		displayCdSymbol(cardSelected);
@@ -239,16 +242,9 @@ $('.play-again').click(function() {
 	restart();
 });
 
+// Open the first popup for user's game mode selection
 $(function ($) {
 	targetPopup('startPopup');
 });
-
-
-
-
-
-
-
-
 
 
