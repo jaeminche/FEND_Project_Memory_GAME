@@ -18,6 +18,8 @@ function main() {
 		listOfTwoSymbols = [],
 		memoryForPair = [],
 		totalMatch = 0;
+	let myStorage = window.localStorage;
+	let score;
 	/**
 	 * Shuffles the cards.
 	 * @param {object} cardlist[]
@@ -106,6 +108,9 @@ function main() {
 				// if all cards have matched, get the end time, and display a key image and its animation
 				if (totalMatch === 8) {
 					getTimeSpent();
+					score = cumulTime;
+					myStorage.setItem('leaderboard', score);
+
 					stopCountDown();
 					$(cardSltd).children().removeClass(nameOfSymbol).addClass('fa fa-key magictime tinUpIn');
 					starCounter();
@@ -142,7 +147,6 @@ function main() {
 		stopCountDown = function() {
 			clearTimeout(callSetTimeout);
 			clearInterval(callInterval);
-			console.log('callinterval: ', typeof(callInterval), callInterval);
 		},
 		startCountDown = function(duration, display) {
 		    timer = duration, minutes, seconds;
@@ -159,9 +163,9 @@ function main() {
 		        	stopCountDown();
 		            $('.deck').addClass('magictime puffOut');
 		        	callSetTimeout = setTimeout(function() {
-							$('.time-spent').text()
-							$('.container').addClass('magictime fail-image tinUpIn');
-							targetPopup('gameoverPopup');
+						$('.time-spent').text()
+						$('.container').addClass('magictime fail-image tinUpIn');
+						targetPopup('gameoverPopup');
 					}, 1000);
 		        }
 			}, 1000);
@@ -214,6 +218,7 @@ function main() {
 		// reset timer
 		thisButton = {};
 		selectedTime = null;
+		cumulTime = 0;
 		// reset the deck
 		listOfTwoSymbols = [];
 		memoryForPair = [];
@@ -268,20 +273,22 @@ function main() {
 		stopCountDown();
 		closePopup();
 		initialize();
-		// newGame = new Game();
-		// newGame.create();
 	});
 
 	$('.restart').unbind('click').click(function() {
 		stopCountDown();
 		initialize();
-		// newGame = new Game();
-		// newGame.create();
 	});
 
 	$('.card').click(function() {
 		openShowCard(this);
 	});
+
+	// Add previous score panel
+	leaderboard = myStorage.getItem("leaderboard");
+	console.log(leaderboard);
+	console.log(myStorage);
+	$('.previous-score').html(leaderboard);
 };
 
 main();
