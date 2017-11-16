@@ -1,16 +1,26 @@
-// Todo : OOPfy timer
-
+/**
+ * Creates a new game
+ * @constructor
+ */
+let Game = function() {
+};
+Game.prototype.create = function() {
+	return main();
+};
+/**
+ * @description Encapsulate all the functions and variables, and call this at the initial load and initialize();
+ */
 function main() {
-	let Game = function() {
-	};
-	Game.prototype.create = function() {
-		return main();
-	};
-
     let	thisButton, selectedTime, callInterval, callSetTimeout;
+    let timer, minutes, seconds, timeInSec, min, sec,
+    	cumulTime = 0;
+	let target, numMove,
+		listOfTwoSymbols = [],
+		memoryForPair = [],
+		totalMatch = 0;
 	/**
-	 * Shuffle the cards.
-	 * @param {array} cardlist[]
+	 * Shuffles the cards.
+	 * @param {object} cardlist[]
 	 * @description Shuffle function from http://stackoverflow.com/a/2450976
 	 */
 	function shuffle(array) {
@@ -39,16 +49,11 @@ function main() {
 		}
 		$('.deck').html(newCardList);
 	};
-
-	let target, numMove,
-		listOfTwoSymbols = [],
-		memoryForPair = [],
-		totalMatch = 0,
-		/**
-		 * removes award stars according to number of try
-		 * @param {string} numTry
-		 */
-		rateStar = function(numTry) {
+	/**
+	 * removes award stars according to number of try
+	 * @param {string} numTry
+	 */
+	let rateStar = function(numTry) {
 			target = $('#thirdstar');
 			if (numTry === '18') {
 				target = $('#secondstar');
@@ -82,7 +87,6 @@ function main() {
 					return [a, b]
 				}
 	};
-
 	/**
 	 * Push a pair in a list and see if they match
 	 * @param {string} cardSltd - element of the '.card' selected
@@ -101,15 +105,17 @@ function main() {
 				totalMatch++;
 				// if all cards have matched, get the end time, and display a key image and its animation
 				if (totalMatch === 8) {
+					getTimeSpent();
 					stopCountDown();
 					$(cardSltd).children().removeClass(nameOfSymbol).addClass('fa fa-key magictime tinUpIn');
 					starCounter();
 					setTimeout(function() {
 						targetPopup('winnerPopup');
+						// get the card's class back to the default state
 						$(cardSltd).children().removeClass('fa-key magictime tinUpIn').addClass(nameOfSymbol);
 					}, 2500);
 				}
-			// if the pair do not match, execute a jello animation and flip them back to the initial state
+			// if the pair do not match, execute a jello animation and flip them back to the default state
 			} else {
 				executeMotion(pair, 'not-match jello');
 				setTimeout(function() {
@@ -127,35 +133,29 @@ function main() {
 			displayCdSymbol(cardSelected);
 	};
 
-	let timer,
-		t0, t1, minutes, seconds, timeInSec, min, sec,
-		getTimeSpent = function() {
-			t1 = performance.now()
-			timeInSec = parseInt((t1 - t0)/1000);
+	let getTimeSpent = function() {
+			timeInSec = cumulTime;
 		    min = parseInt(timeInSec / 60, 10);
 		    sec = parseInt(timeInSec % 60, 10);
 		    $('.time-spent').text(min + ' : ' + sec);
 		},
 		stopCountDown = function() {
-			$('#count-down').empty();
-			getTimeSpent();
 			clearTimeout(callSetTimeout);
 			clearInterval(callInterval);
 			console.log('callinterval: ', typeof(callInterval), callInterval);
 		},
 		startCountDown = function(duration, display) {
-			t0 = performance.now();
 		    timer = duration, minutes, seconds;
 		    callInterval = setInterval(function () {
 		        minutes = parseInt(timer / 60, 10);
 		        seconds = parseInt(timer % 60, 10);
-
 		        minutes = minutes < 10 ? '0' + minutes : minutes;
 		        seconds = seconds < 10 ? '0' + seconds : seconds;
-
 		        display.text(minutes + ':' + seconds);
+		        cumulTime++;
 
 		        if (--timer < 0) {
+		        	getTimeSpent();
 		        	stopCountDown();
 		            $('.deck').addClass('magictime puffOut');
 		        	callSetTimeout = setTimeout(function() {
@@ -166,10 +166,6 @@ function main() {
 		        }
 			}, 1000);
 	};
-
-	/** @global */
-
-	// display = $('#count-down');
 
 	/**
 	 * Pass in an user-selected mode as a parameter
@@ -184,11 +180,11 @@ function main() {
 			return (60 * 1.5);
 		}
 		if (inputMode === 'impossible') {
-			return (2);
+			return (40);
 		}
 	};
 
-	// When the user wins the game, open the popup
+	// When the user starts, wins, or loses the game, open the popup
 	let popup, starList,
 		targetPopup = function(popupName) {
 			popup = document.getElementById(popupName);
@@ -202,8 +198,6 @@ function main() {
 		    $('.deck').removeClass('magictime puffOut');
 		    $('.card').off('click');
 		    $('.card').addClass('open show animated flipInX');
-		    // newGame = undefined;
-		    // delete newGame;
 		},
 		pushStarInPopup = function(times) {
 			for (let i = 0; i < times; i++) {
@@ -211,27 +205,22 @@ function main() {
 			}
 		},
 		starCounter = function() {
-			starList = [];
 			starList = $('.fa-star');
 			$('.num-stars').html(starList.length);
 			pushStarInPopup(starList.length);
 		};
 
 	let initialize = function() {
-		// clearInterval(callInterval);
 		// reset timer
 		thisButton = {};
-		selectedTime = 0;
-		t0 = 0;
-		t1 = 0;
-		// callInterval = 0;
-		$('#count-down').empty();
+		selectedTime = null;
 		// reset the deck
 		listOfTwoSymbols = [];
 		memoryForPair = [];
 		totalMatch = 0;
 		// reset popup
 		starList = [];
+		$('#count-down').empty();
 		$('.num-stars').empty();
 		$('.awards').empty();
 		$('.time-spent').text();
@@ -240,6 +229,9 @@ function main() {
 		$('.moves').text('0');
 		// reset the background on fail
 		$('.container').removeClass('magictime fail-image tinUpIn');
+
+		newGame = new Game();
+		newGame.create();
 	};
 
 	displayDeck();
@@ -251,20 +243,19 @@ function main() {
 	    closePopup();
 	});
 	// When the user clicks anywhere outside of the popup, close it
-	// window.onclick = function(event) {
-	//     if (event.target == popup) {
-	//     	if ($(popup).attr('id') != 'welcomePopup') {
-	//     		closePopup();
-	//     	}
-	//     }
-	// };
+	window.onclick = function(event) {
+	    if (event.target == popup) {
+	    	if ($(popup).attr('id') != 'welcomePopup') {
+	    		closePopup();
+	    	}
+	    }
+	};
 	/**
 	 * Selects a game mode by getting the selected mode name which also is the id name, and then passing it as a parameter in selectMode() called.
 	 * @returns {string} easy|medium|impossible - user gets to select one of these modes
 	 */
-	$('.mode').click(function() {
+	$('.mode').unbind('click').click(function() {
 		thisButton = $(this);
-		console.log(typeof(thisButton));
 		thisButton.addClass('animated flipInY');
 		setTimeout(function() {
 			thisButton.removeClass('animated flipInY');
@@ -273,55 +264,24 @@ function main() {
 		}, 700);
 	});
 
-	$('.play-again').click(function() {
-		// newGame = undefined;
-		// delete newGame;
+	$('.play-again').unbind('click').click(function() {
 		stopCountDown();
 		closePopup();
 		initialize();
-		newGame = new Game();
-		newGame.create();
+		// newGame = new Game();
+		// newGame.create();
 	});
 
-	$('.restart').click(function() {
-		// newGame = undefined;
-		// delete newGame;
+	$('.restart').unbind('click').click(function() {
 		stopCountDown();
 		initialize();
-		newGame = new Game();
-		newGame.create();
+		// newGame = new Game();
+		// newGame.create();
 	});
 
 	$('.card').click(function() {
 		openShowCard(this);
 	});
-}
-
-
+};
 
 main();
-
-// let OneGame = [];
-// let game = {
-// 	create: function() {
-// 			return main();
-// 	}
-// };
-// let oneGame = game.create();
-// console.log(oneGame);
-
-
-
-
-
-// function restart(){
-//     ctx.canvas.removeEventListener('mousemove', function(event){
-//         canvasMouseOver(event);
-//     });
-//     ResetGlobalVariables();
-// }
-
-
-// document.addEventListener("click", function(evnt){
-//     console.log(evnt.target.id);
-// });
