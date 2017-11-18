@@ -32,10 +32,7 @@
                     <li><i id= thirdstar class="fa fa-star ratestars"></i></li>
                 </ul>
 
-                <span class="moves">0</span> Moves /
-                <span class="previous-score-text">Previous Score: </span>
-                <span class="previous-score"></span>sec.
-
+                <span class="moves">0</span> Moves
                 <div class="restart">
                     <i class="fa fa-repeat"></i>
                 </div>
@@ -118,6 +115,19 @@
             <p>With <span class="num-stars">3</span> Stars and <span class="moves">0</span> moves.</p>
             <p>Total time spent = <span class="time-spent"></span></p>
             <p>Wooooo!</p>
+            <button class="see-leaderboard animated flash"><span>See LeaderBoard </span></button>
+            <button class="play-again"><span>Play Again </span></button>
+        </div>
+    </div>
+
+    <div id="leaderBoardPopup" class="popup">
+    <!-- leaderBoardPopup content -->
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <div class ="leaderboard"></div>
+            <p class="leaderboardstyle">- THREE-STARS CLUB -</p>
+            <table id="boardTable"></table>
+            <button class="reset-record"><span>Reset Record </span></button>
             <button class="play-again"><span>Play Again </span></button>
         </div>
     </div>

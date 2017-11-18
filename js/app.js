@@ -10,6 +10,11 @@ Game.prototype.create = function() {
 /**
  * @description Encapsulate all the functions and variables, and call this at the initial load and initialize();
  */
+
+let gameRecord = {
+	'name_score': [{ "name": "FIAT", "score": "40" }]
+};
+
 function main() {
     let	thisButton, selectedTime, callInterval, callSetTimeout;
     let timer, minutes, seconds, timeInSec, min, sec,
@@ -19,7 +24,7 @@ function main() {
 		memoryForPair = [],
 		totalMatch = 0;
 	let myStorage = window.localStorage;
-	let score;
+	let score, playerName;
 	/**
 	 * Shuffles the cards.
 	 * @param {object} cardlist[]
@@ -60,7 +65,7 @@ function main() {
 			if (numTry === '18') {
 				target = $('#secondstar');
 			}
-			if (numTry === '25') {
+			if (numTry === '22') {
 				target = $('#firststar');
 			}
 			target.removeClass('fa-star').addClass('fa-star-o');
@@ -68,8 +73,8 @@ function main() {
 		incrementMoveCnt = function() {
 			numMove = $('.moves');
 			numMove.html(parseInt(numMove.html()) + 1);
-			// call rateStar() if number of try exceeds 14
-			if (parseInt(numMove.html()) >= 14) {
+			// call rateStar() if number of try exceeds 15
+			if (parseInt(numMove.html()) >= 15) {
 				rateStar(numMove.html());
 			}
 		},
@@ -109,13 +114,19 @@ function main() {
 				if (totalMatch === 8) {
 					getTimeSpent();
 					score = cumulTime;
-					myStorage.setItem('leaderboard', score);
-
 					stopCountDown();
 					$(cardSltd).children().removeClass(nameOfSymbol).addClass('fa fa-key magictime tinUpIn');
 					starCounter();
 					setTimeout(function() {
 						targetPopup('winnerPopup');
+						// if user has got all 3 stars, get user's name, save the data in the local storage, and display them on leaderboard
+						if (starList.length === 3) {
+							setTimeout(function() {
+								playerName = prompt("You've got into THREE STARS CLUB!! TYPE YOUR NAME: ", "");
+								myStorage.setItem(score, playerName);
+							}, 500);
+						}
+
 						// get the card's class back to the default state
 						$(cardSltd).children().removeClass('fa-key magictime tinUpIn').addClass(nameOfSymbol);
 					}, 2500);
@@ -214,6 +225,53 @@ function main() {
 			pushStarInPopup(starList.length);
 		};
 
+
+	// leaderboard table
+	let board = document.getElementById('boardTable');
+	console.log(board);
+	let makeTable = function() {
+		let tableLength = 0;
+		if (myStorage.length < 11) {
+			tableLength = 10;
+		} else {
+			tableLength = myStorage.length;
+		}
+
+		for (let r = 0; r < tableLength; r++) {
+	    	let row = board.insertRow(r);
+	    	console.log('row: ', typeof(row));
+	    	for (let c = 0; c < 2; c++) {
+	    		let cell = row.insertCell(c);
+	    	}
+	    }
+	};
+
+	let storeData = function() {
+		console.log('myStorage: ', myStorage);
+		console.log('playerName: ', playerName);
+		let storagedScore =[];
+		let storagedName = [];
+		// Push the data in the local storage into virtual arrays
+		for (let i = 0; i < myStorage.length; i++){
+	    	storagedScore.push(myStorage.key(i));
+	    	storagedName.push(myStorage.getItem(myStorage.key(i)));
+		}
+		console.log('storagedName: ', storagedName);
+		console.log('storagedScore: ', storagedScore);
+		// Write the data onto the table created
+		for (let j = 0; j < storagedScore.length; j++) {
+			$('tr').eq(j).find('td').eq(0).html(storagedName[j]);
+			$('tr').eq(j).find('td').eq(1).html(storagedScore[j] + ' seconds');
+		}
+	};
+
+	let resetRecord = function() {
+		myStorage.clear();
+		$('table').empty();
+		makeTable();
+		storeData();
+	};
+
 	let initialize = function() {
 		// reset timer
 		thisButton = {};
@@ -225,6 +283,7 @@ function main() {
 		totalMatch = 0;
 		// reset popup
 		starList = [];
+		$('table').empty();
 		$('#count-down').empty();
 		$('.num-stars').empty();
 		$('.awards').empty();
@@ -269,6 +328,18 @@ function main() {
 		}, 700);
 	});
 
+	$('.see-leaderboard').unbind('click').click(function() {
+		stopCountDown();
+		closePopup();
+		targetPopup('leaderBoardPopup');
+		makeTable();
+		storeData();
+	});
+
+	$('.reset-record').unbind('click').click(function() {
+		resetRecord();
+	});
+
 	$('.play-again').unbind('click').click(function() {
 		stopCountDown();
 		closePopup();
@@ -283,12 +354,6 @@ function main() {
 	$('.card').click(function() {
 		openShowCard(this);
 	});
-
-	// Add previous score panel
-	leaderboard = myStorage.getItem("leaderboard");
-	console.log(leaderboard);
-	console.log(myStorage);
-	$('.previous-score').html(leaderboard);
 };
 
 main();

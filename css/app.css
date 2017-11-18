@@ -164,11 +164,6 @@ h1 {
     cursor: pointer;
 }
 
-.previous-score-text {
-    float: center;
-    color: blue;
-}
-
 .fa-key {
     color: yellow;
     font-size: 90px;
@@ -279,6 +274,21 @@ h1 {
     display: inline-block;
 }
 
+.leaderboard {
+    background: url(../img/leaderboard.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 4px;
+    border: none;
+    width: 8em;
+    padding: 8em;
+    margin: 3em 3em 1em;
+    display: inline-block;
+}
+
+.see-leaderboard,
+.reset-record,
 .play-again {
     font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     background: orange;
@@ -368,6 +378,34 @@ h1 {
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
+
+
+
+table,
+tr,
+td {
+    border: 1px solid #9dc3f3;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+    background: linear-gradient(to right, #25c481, #25b7c4);
+    color: #fff;
+}
+
+tr {
+    height: 2em;
+}
+
+.leaderboardstyle {
+    font-size: 1.5em;
+}
+
+td {
+    font-size: 1.2em;
+}
 
 
 
