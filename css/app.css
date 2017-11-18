@@ -115,19 +115,6 @@ h1 {
 /*    position: relative;
 */}
 
-.bigger-help {
-    background: url(../img/help.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    border-radius: 4px;
-    border: none;
-    width: 8em;
-    padding: 8em;
-    margin: 3em 3em 1em;
-    display: inline-block;
-}
-
 .select-mode {
     display: flex;
     justify-content: center;
@@ -235,21 +222,6 @@ h1 {
     background-repeat: repeat;
 }
 
-.noway {
-    background: url(../img/noway.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    border-radius: 4px;
-    border: none;
-    width: 8em;
-    padding: 8em;
-    margin: 3em;
-    display: inline-block;
-    /*position: relative;*/
-}
-
-
 .key {
     background-image: url(../img/key.jpg);
     background-repeat: no-repeat;
@@ -261,21 +233,30 @@ h1 {
     font-size: 0.5em;
 }
 
+.bigger-help {
+    background: url(../img/help.jpg);
+    margin: 3em 3em 1em;
+}
+
 .muah {
     background: url(../img/muah.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    border-radius: 4px;
-    border: none;
-    width: 8em;
-    padding: 8em;
     margin: 3em 3em 1em;
-    display: inline-block;
 }
 
 .leaderboard {
     background: url(../img/leaderboard.png);
+    margin: 3em 3em 1em;
+}
+
+.noway {
+    background: url(../img/noway.png);
+    margin: 3em;
+}
+
+.bigger-help,
+.muah,
+.leaderboard,
+.noway {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -283,7 +264,6 @@ h1 {
     border: none;
     width: 8em;
     padding: 8em;
-    margin: 3em 3em 1em;
     display: inline-block;
 }
 
@@ -337,9 +317,6 @@ h1 {
     right: 0;
 }
 
-
-
-
 .select-mode {
     display: flex;
     align-items: center;
@@ -378,9 +355,6 @@ h1 {
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-
-
-
 table,
 tr,
 td {
@@ -406,19 +380,3 @@ tr {
 td {
     font-size: 1.2em;
 }
-
-
-
-/*@media screen and (max-width: 415px) {
-    html {
-        width: 100%;
-    }
-}
-
-@media screen and (min-width: 416px) and (max-width: 1025px) {
-    html {
-        width: 90%;
-    }
-}
-
-*/
