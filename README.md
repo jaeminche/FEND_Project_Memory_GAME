@@ -1,4 +1,4 @@
-# Memory Game Project
+# ESCAPE THE ROOM! Matching Game
 
 ## Table of Contents
 
@@ -7,14 +7,27 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This complete browser-based card matching game is made with JavaScript, HTML, and CSS.
+The game includes following features including interactivity:
 
-To get started, open `js/app.js` and start building out the app's functionality
+	1. CSS animations when cards are clicked, unsuccessfully matched, and successfully matched.
+	2. A 'Three-Star Club' leaderboard with the time recorded and the user's names retrieved from user's input on a prompt box, using local storage.
+	3. Selectable buttons for user to select a game mode on the welcome pop-up;
+	they set different durations for a session.
+	4. Count-down timer : When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops. If not, the card deck bombs up, and a game-over pop-up displays.
+	5. Stars(rating) retrieved and displayed on the congratulations pop-up.
+	6. A leaderboard with scores automatically sorted by value.
+	7. A reset-record button that allows clear the local storage and the leaderboard.
+	8. X-marks that allow user to close pop-ups (also all the pop-ups (except for the welcome pop-up) can be closed by clicking anywhere outside.
+	9. Restart and play-again buttons that allow user to  reset the game board, the timer, the star rating, and etc.
+	10. Four pop-ups : welcome, winner, leaderboard, and gameover pop-ups.
+	11. The game randomly shuffles the cards. A user wins once all cards have successfully been matched.
+	12. Move counter : Game displays the current number of a set of moves a user has made.
+	13. Star rating : The game displays a star rating (from 1-3) that reflects the player's performance. At the beginning of a game, it displays 3 stars. After 15 moves, it should change to a 2 star rating. After 18 moves, to a 1 star rating, and after 22 moves, to a 0 star rating.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+I'd love to accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
