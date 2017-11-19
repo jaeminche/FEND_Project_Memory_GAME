@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>Matching Game</title>
     <meta name="description" content="">
     <link rel="shortcut icon" type="image/ico" href="img/favicon.ico">
@@ -14,6 +13,7 @@
     <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
 
     <div class="container">
@@ -90,14 +90,14 @@
         </ul>
     </div>
 
-    <div id="welcomePopup" class="popup">
     <!-- welcomePopup content -->
+    <div id="welcomePopup" class="popup">
         <div class="popup-content">
-            <section class="bigger-help"></section>
+            <section class="img-on-popup bigger-help"></section>
             <p>Mel is locked up in this room, and it will EXPLODE soon!</p>
             <p>Match all the cards to get the key in the last one revealed!</p>
             <p>SELECT A MODE!</p>
-            <section class="select-mode">
+            <section class="select-mode flex-center">
                 <button id="easy" class="mode"><span>easy </span></button>
                 <button id="medium" class="mode"><span>medium </span></button>
                 <button id="impossible" class="mode"><span>impossible </span></button>
@@ -105,46 +105,52 @@
         </div>
     </div>
 
-    <div id="winnerPopup" class="popup">
     <!-- winnerPopup content -->
+    <div id="winnerPopup" class="popup">
         <div class="popup-content">
             <span class="close">&times;</span>
-            <div class ="muah"></div>
+            <div class ="img-on-popup muah"></div>
             <p>Congratulations! You've Got the KEY!</p>
             <ul class="awards"></ul>
             <p>With <span class="num-stars">3</span> Stars and <span class="moves">0</span> moves.</p>
             <p>Total time spent = <span class="time-spent"></span></p>
             <p>Wooooo!</p>
-            <button class="see-leaderboard animated flash"><span>See LeaderBoard </span></button>
-            <button class="play-again"><span>Play Again </span></button>
+            <section class="flex-center">
+                <button class="see-leaderboard animated flash"><span>See LeaderBoard </span></button>
+                <button class="play-again"><span>Play Again </span></button>
+            </section>
         </div>
     </div>
 
-    <div id="leaderBoardPopup" class="popup">
     <!-- leaderBoardPopup content -->
+    <div id="leaderBoardPopup" class="popup">
         <div class="popup-content">
             <span class="close">&times;</span>
-            <div class ="leaderboard"></div>
+            <div class ="img-on-popup leaderboard"></div>
             <p class="leaderboardstyle">- THREE-STARS CLUB -</p>
             <table id="boardTable"></table>
-            <button class="reset-record"><span>Reset Record </span></button>
-            <button class="play-again"><span>Play Again </span></button>
+            <section class="flex-center">
+                <button class="reset-record"><span>Reset Record </span></button>
+                <button class="play-again"><span>Play Again </span></button>
+            </section>
         </div>
     </div>
 
-    <div id="gameoverPopup" class="popup">
     <!-- game-over popup content -->
+    <div id="gameoverPopup" class="popup">
         <div class="popup-content">
             <span class="close">&times;</span>
-            <div class="noway"></div>
+            <div class="img-on-popup noway"></div>
             <p>Too Bad! You LOST!</p>
             <p>Try again?</p>
-            <button class="play-again"><span>Play Again </span></button>
+            <section class="flex-center">
+                <button class="see-leaderboard animated flash"><span>See LeaderBoard </span></button>
+                <button class="play-again"><span>Play Again </span></button>
+            </section>
         </div>
     </div>
 
-</div>
-
     <script src="js/app.js"></script>
+
 </body>
 </html>

@@ -48,7 +48,7 @@ h1 {
 .deck {
     width: 660px;
     min-height: 680px;
-    background: linear-gradient(160deg, #EDBF11 0%, #B0694E 100%);
+    background: linear-gradient(160deg, #edbf11 0%, #b0694e 100%);
     padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -87,7 +87,7 @@ h1 {
 
 .deck .card.match {
     cursor: default;
-    background: #0000FF;
+    background: #0000ff;
     font-size: 33px;
     pointer-events: none !important;
 }
@@ -112,10 +112,9 @@ h1 {
     padding: 5em;
     margin-right: 5em;
     display: block;
-/*    position: relative;
-*/}
+}
 
-.select-mode {
+.flex-center {
     display: flex;
     justify-content: center;
 }
@@ -130,7 +129,6 @@ h1 {
     width: 355px;
     margin-bottom: 10px;
 }
-
 
 .awards,
 .score-panel .stars {
@@ -182,7 +180,7 @@ h1 {
     width: 50%;
 }
 
-/* The Close Button */
+/* The Close Button on popups*/
 .close {
     color: #aaaaaa;
     float: right;
@@ -201,13 +199,14 @@ h1 {
     padding-top: 1em;
 }
 
+/* Star ratings up on the deck */
 .fa-check-circle-o {
     color: orange;
     text-shadow: 0.05em 0.05em 0.05em #ccc;
     font-size: 5em;
 }
 
-
+/* Star ratings on the winner popup */
 .awards {
     color: yellow;
     font-size: 4em;
@@ -215,6 +214,7 @@ h1 {
     text-shadow: 0 0 3px blue;
 }
 
+/* background image on gameover */
 .fail-image {
     background-image: url(../img/fail.png);
     -webkit-animation-duration: 0.5s;
@@ -222,6 +222,7 @@ h1 {
     background-repeat: repeat;
 }
 
+/* key image on winning */
 .key {
     background-image: url(../img/key.jpg);
     background-repeat: no-repeat;
@@ -233,30 +234,32 @@ h1 {
     font-size: 0.5em;
 }
 
+/* Welcome image on welcome popup */
 .bigger-help {
     background: url(../img/help.jpg);
     margin: 3em 3em 1em;
 }
 
+/* Muah image on winner popup */
 .muah {
     background: url(../img/muah.png);
     margin: 3em 3em 1em;
 }
 
+/* Leaderboard image on leaderboard popup */
 .leaderboard {
     background: url(../img/leaderboard.png);
     margin: 3em 3em 1em;
 }
 
+/* Noway image on gameover popup */
 .noway {
     background: url(../img/noway.png);
     margin: 3em;
 }
 
-.bigger-help,
-.muah,
-.leaderboard,
-.noway {
+/* The 4 images on popups share the attritubes below */
+.img-on-popup  {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -267,29 +270,13 @@ h1 {
     display: inline-block;
 }
 
+/* Buttons */
 .see-leaderboard,
 .reset-record,
 .play-again {
-    font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    margin: 1em;
     background: orange;
-    text-align: center;
     transition: all 0.5s;
-    cursor: pointer;
-    margin: 1em auto 2em;
-    height: 50px;
-    width: 125px;
-    font-size: 0.9rem;
-    color: #fff;
-    text-align: center;
-    line-height: normal;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .play-again span {
@@ -328,7 +315,7 @@ h1 {
 }
 
 #medium {
-    background: #0000FF;
+    background: #0000ff;
 }
 
 #impossible {
@@ -336,25 +323,26 @@ h1 {
 }
 
 .select-mode .mode {
+    margin: 0.3em;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+button {
+    font: bold 0.9rem/normal "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     height: 50px;
     width: 125px;
-    font-family: "Raleway", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    font-size: 0.9rem;
     color: #fff;
     text-align: center;
-    line-height: normal;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0.3em;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
+/* leaderboard  */
 table,
 tr,
 td {
