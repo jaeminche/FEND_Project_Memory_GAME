@@ -59,19 +59,16 @@ function main() {
      */
     let rateStar = function(numTry) {
             target = $('#thirdstar');
-            if (numTry === '18') {
+            if (numTry === '25') {
                 target = $('#secondstar');
-            }
-            if (numTry === '22') {
-                target = $('#firststar');
             }
             target.removeClass('fa-star').addClass('fa-star-o');
         },
         incrementMoveCnt = function() {
             numMove = $('.moves');
             numMove.html(parseInt(numMove.html()) + 1);
-            // call rateStar() if number of try exceeds 15
-            if (parseInt(numMove.html()) >= 15) {
+            // call rateStar() if number of try exceeds 20
+            if (parseInt(numMove.html()) >= 20) {
                 rateStar(numMove.html());
             }
         },
