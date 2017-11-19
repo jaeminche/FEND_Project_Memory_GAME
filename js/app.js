@@ -226,7 +226,7 @@ function main() {
     // leaderboard table
     let board = document.getElementById('boardTable');
     let makeTable = function() {
-        // Set the default size of table for 10 rows
+        // Set the default size of table for 10 rows, and let it increase later on
         let tableLength = 0;
         if (myStorage.length < 11) {
             tableLength = 10;
@@ -298,7 +298,7 @@ function main() {
 
     // When the user clicks on (x), close the popup
     $('.close').click(function() {
-        closePopup();
+         closePopup();
     });
     // When the user clicks anywhere outside of the popup, close it
     window.onclick = function(event) {
@@ -345,6 +345,15 @@ function main() {
         stopCountDown();
         initialize();
     });
+
+    // Pressing ESC key restarts the game
+	$(document).keyup(function(e) {
+	    if (e.keyCode == 27) {
+	        stopCountDown();
+	        closePopup();
+	        initialize();
+	    }
+	});
 
     $('.card').click(function() {
         openShowCard(this);
