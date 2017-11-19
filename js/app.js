@@ -88,7 +88,7 @@ function main() {
     let Pair = [];
     let pairHolder = {
         create: function(a, b) {
-                    return [a, b]
+                    return [a, b];
                 }
     };
     /**
@@ -157,7 +157,7 @@ function main() {
             clearInterval(callInterval);
         },
         startCountDown = function(duration, display) {
-            timer = duration, minutes, seconds;
+            timer = duration;
             callInterval = setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
                 seconds = parseInt(timer % 60, 10);
@@ -171,7 +171,7 @@ function main() {
                     stopCountDown();
                     $('.deck').addClass('magictime puffOut');
                     callSetTimeout = setTimeout(function() {
-                        $('.time-spent').text()
+                        $('.time-spent').text();
                         $('.container').addClass('magictime fail-image tinUpIn');
                         targetPopup('gameoverPopup');
                     }, 1000);
@@ -264,6 +264,7 @@ function main() {
         storeData();
     };
 
+    // Initializes all variables and resets the page with restart or playagain button clicked on
     let initialize = function() {
         // reset timer
         thisButton = {};
@@ -348,6 +349,6 @@ function main() {
     $('.card').click(function() {
         openShowCard(this);
     });
-};
+}
 
 main();

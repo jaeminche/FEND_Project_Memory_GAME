@@ -1,17 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
-    <meta name="description" content="">
-    <link rel="shortcut icon" type="image/ico" href="img/favicon.ico">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
-    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Corben">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="img/favicon.ico" rel="shortcut icon" type="image/ico">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet prefetch">
+    <link href="https://fonts.googleapis.com/css?family=Coda" rel="stylesheet prefetch">
+    <link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet prefetch">
+    <link href="css/app.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet prefetch">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magic/1.1.0/magic.min.css" rel="stylesheet prefetch">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
 </head>
 
 <body>
@@ -20,132 +21,143 @@
         <header>
             <h1>ESCAPE THE ROOM! Matching Game</h1>
         </header>
+
         <section class="flex">
             <section class="help"></section>
             <section class="score-panel">
-                <p>This room is locked and will EXPLODE in  <span id="count-down"></span>!</p>
-                <p>The key is in the last card revealed! </p>
+                <p>This room is locked and will EXPLODE in <span id="count-down"></span>!</p>
+                <p>The key is in the last card revealed!</p>
 
                 <ul class="stars">
-                    <li><i id= firststar class="fa fa-star ratestars"></i></li>
-                    <li><i id= secondstar class="fa fa-star ratestars"></i></li>
-                    <li><i id= thirdstar class="fa fa-star ratestars"></i></li>
-                </ul>
+                    <li><i class="fa fa-star ratestars" id="firststar"></i>
+                    </li>
+                    <li><i class="fa fa-star ratestars" id="secondstar"></i>
+                    </li>
+                    <li><i class="fa fa-star ratestars" id="thirdstar"></i>
+                    </li>
+                </ul><span class="moves">0</span> Moves
 
-                <span class="moves">0</span> Moves
                 <div class="restart">
                     <i class="fa fa-repeat"></i>
                 </div>
             </section>
         </section>
+
         <ul class="deck">
-            <li class="card">
-                <i class="fa fa-diamond"></i>
+            <li class="card"><i class="fa fa-diamond"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
+            <li class="card"><i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-anchor"></i>
+            <li class="card"><i class="fa fa-anchor"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-bolt"></i>
+            <li class="card"><i class="fa fa-bolt"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
+            <li class="card"><i class="fa fa-cube"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-anchor"></i>
+            <li class="card"><i class="fa fa-anchor"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
+            <li class="card"><i class="fa fa-leaf"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
+            <li class="card"><i class="fa fa-bicycle"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-diamond"></i>
+            <li class="card"><i class="fa fa-diamond"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
+            <li class="card"><i class="fa fa-bomb"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
+            <li class="card"><i class="fa fa-leaf"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
+            <li class="card"><i class="fa fa-bomb"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-bolt"></i>
+            <li class="card"><i class="fa fa-bolt"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
+            <li class="card"><i class="fa fa-bicycle"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
+            <li class="card"><i class="fa fa-paper-plane-o"></i>
             </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
+            <li class="card"><i class="fa fa-cube"></i>
             </li>
         </ul>
     </div>
-
     <!-- welcomePopup content -->
-    <div id="welcomePopup" class="popup">
+
+    <div class="popup" id="welcomePopup">
         <div class="popup-content">
             <section class="img-on-popup bigger-help"></section>
+
             <p>Mel is locked up in this room, and it will EXPLODE soon!</p>
             <p>Match all the cards to get the key in the last one revealed!</p>
             <p>SELECT A MODE!</p>
+
             <section class="select-mode flex-center">
-                <button id="easy" class="mode"><span>easy </span></button>
-                <button id="medium" class="mode"><span>medium </span></button>
-                <button id="impossible" class="mode"><span>impossible </span></button>
+                <button class="mode" id="easy"><span>easy</span>
+                </button>
+                <button class="mode" id="medium"><span>medium</span>
+                </button>
+                <button class="mode" id="impossible"><span>impossible</span>
+                </button>
             </section>
         </div>
     </div>
-
     <!-- winnerPopup content -->
-    <div id="winnerPopup" class="popup">
+
+    <div class="popup" id="winnerPopup">
         <div class="popup-content">
             <span class="close">&times;</span>
-            <div class ="img-on-popup muah"></div>
+
+            <div class="img-on-popup muah"></div>
+
             <p>Congratulations! You've Got the KEY!</p>
+
             <ul class="awards"></ul>
+
             <p>With <span class="num-stars">3</span> Stars and <span class="moves">0</span> moves.</p>
             <p>Total time spent = <span class="time-spent"></span></p>
             <p>Wooooo!</p>
+
             <section class="flex-center">
-                <button class="see-leaderboard animated flash"><span>See LeaderBoard </span></button>
-                <button class="play-again"><span>Play Again </span></button>
+                <button class="see-leaderboard animated flash"><span>See LeaderBoard</span>
+                </button>
+                <button class="play-again"><span>Play Again</span>
+                </button>
             </section>
         </div>
     </div>
-
     <!-- leaderBoardPopup content -->
-    <div id="leaderBoardPopup" class="popup">
+
+    <div class="popup" id="leaderBoardPopup">
         <div class="popup-content">
             <span class="close">&times;</span>
-            <div class ="img-on-popup leaderboard"></div>
+
+            <div class="img-on-popup leaderboard"></div>
+
             <p class="leaderboardstyle">- THREE-STARS CLUB -</p>
+
             <table id="boardTable"></table>
+
             <section class="flex-center">
-                <button class="reset-record"><span>Reset Record </span></button>
-                <button class="play-again"><span>Play Again </span></button>
+                <button class="reset-record"><span>Reset Record</span>
+                </button>
+                <button class="play-again"><span>Play Again</span>
+                </button>
             </section>
         </div>
     </div>
-
     <!-- game-over popup content -->
-    <div id="gameoverPopup" class="popup">
+
+    <div class="popup" id="gameoverPopup">
         <div class="popup-content">
             <span class="close">&times;</span>
+
             <div class="img-on-popup noway"></div>
+
             <p>Too Bad! You LOST!</p>
             <p>Try again?</p>
+
             <section class="flex-center">
-                <button class="see-leaderboard animated flash"><span>See LeaderBoard </span></button>
-                <button class="play-again"><span>Play Again </span></button>
+                <button class="see-leaderboard animated flash"><span>See LeaderBoard</span>
+                </button>
+                <button class="play-again"><span>Play Again</span>
+                </button>
             </section>
         </div>
     </div>
@@ -153,4 +165,5 @@
     <script src="js/app.js"></script>
 
 </body>
+
 </html>
