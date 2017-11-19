@@ -356,6 +356,10 @@ function main() {
 	});
 
     $('.card').click(function() {
+    	// If a flipped pair do not match and another card gets clicked (before the setTimeout execution finishes), do the execution right away without the delay
+    	if ($('.card').hasClass('not-match')) {
+    		$('.card').removeClass('open show not-match animated jello');
+    	}
         openShowCard(this);
     });
 }
