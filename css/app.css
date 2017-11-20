@@ -1,10 +1,16 @@
 html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    -ms-box-sizing: inherit;
     box-sizing: inherit;
 }
 
@@ -22,10 +28,17 @@ body {
 }
 
 .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-direction: column;
+        flex-direction: column;
 }
 
 h1 {
@@ -71,6 +84,7 @@ h1 {
     justify-content: center;
     align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    margin: 0 0 20px;
 }
 
 .deck .card.open {
