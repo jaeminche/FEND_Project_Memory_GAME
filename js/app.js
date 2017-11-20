@@ -223,10 +223,10 @@ function main() {
     // leaderboard table
     let board = document.getElementById('boardTable');
     let makeTable = function() {
-        // Set the default size of table for 10 rows, and let it increase later on
+        // Set the default size of table for 7 rows, and let it increase later on
         let tableLength = 0;
-        if (myStorage.length < 11) {
-            tableLength = 10;
+        if (myStorage.length < 8) {
+            tableLength = 7;
         } else {
             tableLength = myStorage.length;
         }
