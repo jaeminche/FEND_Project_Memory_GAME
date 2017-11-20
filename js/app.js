@@ -171,6 +171,7 @@ function main() {
                         $('.time-spent').text();
                         $('.container').addClass('magictime fail-image tinUpIn');
                         targetPopup('gameoverPopup');
+                        $('.deck').removeClass('magictime puffOut');
                     }, 1000);
                 }
             }, 1000);

@@ -376,10 +376,7 @@ footer {
     color: red;
 }
 
-
-
-
-@media screen and (max-width: 415px) {
+@media screen and (max-width: 638px) {
     h1 {
         font-size: 17px;
         line-height: 20px;
@@ -393,15 +390,21 @@ footer {
         min-height: 350px;
         padding: 5%;
         margin: 0.3em;
-        border-radius: 10px;
-        box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     }
 
     .deck .card {
         height: 65px;
         width: 22%;
-        border-radius: 8px;
-        box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    }
+
+    .deck .card.match,
+    .deck .card.show {
+        font-size: 29px;
+    }
+
+    .help {
+        display: none;
+        margin: 0;
     }
 
     .score-panel {
@@ -409,71 +412,25 @@ footer {
         margin-bottom: 20px;
     }
 
-    .deck .card.show {
-        font-size: 33px;
-    }
-
-    .deck .card.match {
-        font-size: 33px;
-    }
-
-
-    .help {
-        display: none;
-        margin: 0;
-    }
-
-    .awards,
-    .score-panel .stars {
-        margin: 0 5px 0 0;
-    }
-
-    .fail-image {
-        display: none;
-    }
-
     .fa-key {
-        font-size: 90px;
+        font-size: 80px;
     }
 
     .popup-content {
         width: 65%;
     }
 
-    /* The Close Button on popups*/
-    .close {
-        font-size: 2em;
+    .fail-image {
+        background-size: 40%;
     }
 
-    .key {
-        border-radius: 0.3em;
-        padding: 1em;
-        margin-left: 0.3em;
-        font-size: 0.5em;
-    }
-
-
-    /* Welcome image on welcome popup */
+    .muah,
+    .leaderboard,
+    .noway,
     .bigger-help {
         margin: 1em;
     }
 
-    /* Muah image on winner popup */
-    .muah {
-        margin: 1em;
-    }
-
-    /* Leaderboard image on leaderboard popup */
-    .leaderboard {
-        margin: 1em;
-    }
-
-    /* Noway image on gameover popup */
-    .noway {
-        margin: 1em;
-    }
-
-    /* The 4 images on popups share the attritubes below */
     .img-on-popup  {
         padding: 5em;
     }
@@ -483,7 +440,6 @@ footer {
     }
 
     .select-mode .mode {
-        margin: 0.3em;
         width: 100px;
         height: 35px;
     }
@@ -494,14 +450,56 @@ footer {
 
 }
 
-/* @media screen and (max-width: 361px) {
-    html {
-        width: 100%;
+@media screen and (min-width: 639px) and (max-width: 767px) {
+    h1 {
+        font-size: 30px;
     }
-} */
 
-/* @media screen and (min-width: 416px) and (max-width: 1025px) {
-    html {
-        width: 100%;
+    .deck {
+        width: 80%;
+        height: 80%;
+        min-height: 500px;
+        padding: 2%;
+        margin: 0.3em;
     }
-} */
+
+    .deck .card {
+        height: 100px;
+        width: 23%;
+    }
+
+    .deck .card.match,
+    .deck .card.show {
+        font-size: 30px;
+    }
+
+    .help {
+        margin-right: 2em;
+    }
+
+    .fa-key {
+        font-size: 65px;
+    }
+
+    .popup-content {
+        width: 65%;
+    }
+
+
+    .img-on-popup  {
+        padding: 6.5em;
+    }
+
+    .select-mode {
+        margin: 0 0 1em;
+    }
+
+    .select-mode .mode {
+        width: 100px;
+        height: 35px;
+    }
+
+    button {
+        font-size: 0.8em;
+    }
+}
