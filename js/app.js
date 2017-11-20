@@ -190,7 +190,7 @@ function main() {
             return (60 * 1.5);
         }
         if (inputMode === 'impossible') {
-            return (40);
+            return (50);
         }
     };
 
